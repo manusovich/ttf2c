@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
     else {
         // draw...
         draw();
-        sleep(5);
+        sleep(15);
     }
     
     // cleanup
