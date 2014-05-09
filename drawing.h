@@ -1,7 +1,7 @@
 
 
 void pp(int x, int y, int intensity, int c) {
-    wprintf("%d", c;
+    wprintf("%d", c);
     unsigned int pix_offset = x + y * finfo.line_length;
     int r = ((c & 0xFF) << 16) / (double) 255 * intensity;
 	int g = ((c & 0xFF) << 8) / (double) 255 * intensity;
