@@ -19,8 +19,9 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 		return -1;
 	}
 
+	int i = 0;
 	printf("%d\n", len);
-	for (int i = 0; i < len; i++) {
+	for (i = 0; i < len; i++) {
 		printf("%s\n", s[i]);
 	}
 }
