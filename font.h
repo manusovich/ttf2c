@@ -13,16 +13,18 @@ font1_pointers[1] = &print_0057;
 font1_chars[2] = 0x0045; // E
 font1_pointers[2] = &print_0045;
 */
-int font1Print(char *str, int x, int y, int maxWidth) {
-	int len = strlen ( str );
+int font1Print(wchar_t *str, int x, int y, int maxWidth) {
+	int len = wcslen ( str );
 	if (len > 200) {
 		return -1;
 	}
 
 	int i = 0;
 	printf("%d\n", len);
+	char c = str[1];
+
 	// for (i = 0; i < len; i++) {
-		printf("%c\n", str[1]);
+		printf("%d\n", c);
 	// }
 }
 
