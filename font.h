@@ -19,7 +19,7 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 		return -1;
 	}
 
-	printf(len);
+	printf("%d\n", len);
 
 	printf("1");
 /*	int i = 0;
