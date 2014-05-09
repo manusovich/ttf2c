@@ -6,11 +6,9 @@
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
+#include "drawing.h"
+#include "font.h"
 
-// 'global' variables to store screen info
-char *fbp = 0;
-struct fb_var_screeninfo vinfo;
-struct fb_fix_screeninfo finfo;
 
 // helper function to 'plot' a pixel in given color
 void put_pixel(int x, int y, int c)
@@ -32,28 +30,17 @@ void draw() {
     // fill the screen with blue
     memset(fbp, 1, vinfo.xres * vinfo.yres);
     
-    // white horizontal lines every 10 pixel rows
-    for (y = 0; y < (vinfo.yres); y+=10) {
-        for (x = 0; x < vinfo.xres; x++) {
-            put_pixel(x, y, 15);
-        }
-    }
-    
-    // white vertical lines every 10 pixel columns
-    for (x = 0; x < vinfo.xres; x+=10) {
-        for (y = 0; y < (vinfo.yres); y++) {
-            put_pixel(x, y, 15);
-        }
-    }
-    
-    int n;
-    // select smaller extent
-    // (just in case of a portrait mode display)
-    n = (vinfo.xres < vinfo.yres) ? vinfo.xres : vinfo.yres;
-    // red diagonal line from top left
-    for (x = 0; x < n; x++) {
-        put_pixel(x, x, 4);
-    }
+    int o = 10;
+    o += print_M(o,10,15);
+    o += print_a(o,10,15);
+    o += print_n(o,10,15);
+    o += print_u(o,10,15);
+    o += print_s(o,10,15);
+    o += print_o(o,10,15);
+    o += print_v(o,10,15);
+    o += print_i(o,10,15);
+    o += print_c(o,10,15);
+    o += print_h(o,10,15);
     
 }
 
