@@ -54,19 +54,19 @@ void draw() {
         int num;
         num = swprintf(wcsbuf, BUF_SIZE, L"%s", "W");
 
-        if (rand % 20 > 10) {
+        if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
         }
-        if (rand % 20 > 10) {
+        if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
         }
-        if (rand % 20 > 10) {
+        if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
         }
-        if (rand % 20 > 10) {
+        if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
         }
-        
+
         font1print(wcsbuf, 10, 10, rgb(0xff, 0, 0), 400); 
      
         usleep(1000000 / fps);
