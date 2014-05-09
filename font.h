@@ -3,6 +3,7 @@ typedef int (*font1_ptr_t)( int, int, int );
 font1_ptr_t font1_pointers[3];
 int font1_chars[3];
 
+/*
 font1_chars[0] = 0x0051; // Q
 font1_pointers[0] = &print_0051;
 
@@ -11,17 +12,17 @@ font1_pointers[1] = &print_0057;
 
 font1_chars[2] = 0x0045; // E
 font1_pointers[2] = &print_0045;
-
+*/
 int font1Print(char *str, int x, int y, int maxWidth) {
 	int len = strlen ( str );
 	if (len > 200) {
 		return -1;
 	}
-
+/*
 	int i = 0;
 	while (str[i] != '\0') {
 		wprintf(L"Первая буква Большая!: " + str[i]);
-	}
+	}*/
 }
 
 int print_0051(int x, int y, int c) {
