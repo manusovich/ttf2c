@@ -14,7 +14,7 @@ font1_pointers[2] = &print_0045;
 
 int font1Print(char *str, int x, int y, int maxWidth) {
 	int len = strlen ( str );
-	if (strlen > 200) {
+	if (len > 200) {
 		return -1;
 	}
 
