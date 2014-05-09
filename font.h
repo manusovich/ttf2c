@@ -1,8 +1,8 @@
 typedef int (*font1_ptr_t)( int, int, int );
 
-int font1_symbol_count = 3;
+enum { FONT1_SIZE = 3 };
 //font1_ptr_t font1_pointers[font1_symbol_count];
-int font1_chars[font1_symbol_count];
+int font1_chars[FONT1_SIZE];
 
 font1_chars[0] = 0x0051; // Q
 //font1_pointers[0] = &print_0051;
@@ -24,14 +24,13 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	for (i = 0; i < len; i++) {
 		wchar_t c = str[i];
 		wprintf(L"%lc (%d) (%d)\n", c, c, 0x0051);
-/*
+
 		for (k = 0; k < font1_symbol_count; k++) {
 			if (font1_chars[k] == c) {
 				wprintf(L"SI: %d\n", k);
 			}
 		}
 	}
-*/
 }
 
 int print_0051(int x, int y, int c) {
