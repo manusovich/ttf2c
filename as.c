@@ -37,7 +37,7 @@ void put_pixel(int x, int y, int c)
 void draw() {
     // fill the screen with blue
     // memset(fbp, 1, vinfo.xres * vinfo.yres);
-    font1Print(L"QWE", 10, 10, 400); 
+    font1Print("QWE", 10, 10, 400); 
 }
 
 // application entry point

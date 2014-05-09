@@ -18,11 +18,11 @@ int font1Print(int *str, int x, int y, int maxWidth) {
 	if (len > 200) {
 		return -1;
 	}
-/*
+
 	int i = 0;
 	while (str[i] != '\0') {
-		wprintf(L"Первая буква Большая!: " + str[i]);
-	}*/
+		printf(">" + str[i]);
+	}
 }
 
 int print_0051(int x, int y, int c) {
