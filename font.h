@@ -25,7 +25,7 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 
 	// for (i = 0; i < len; i++) {
 		wprintf(L"%lc\n", c);
-		wprintf(L"%x\n", c);
+		wprintf(L"%#08x\n", c);
 	// }
 }
 
