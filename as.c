@@ -37,7 +37,7 @@ void put_pixel(int x, int y, int c)
 void draw() {
     // fill the screen with blue
     // memset(fbp, 1, vinfo.xres * vinfo.yres);
-    wchar_t* s = "QWE";
+    wchar_t* s = L"QWE";
     font1Print(s, 10, 10, 400); 
 }
 
