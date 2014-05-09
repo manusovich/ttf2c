@@ -1,29 +1,20 @@
 typedef int (*font1_ptr_t)( int, int, int );
 
-enum { FONT1_SIZE = 3 };
-//font1_ptr_t font1_pointers[font1_symbol_count];
-int font1_chars[FONT1_SIZE] = {0x0051, 0x0057, 0x0045};
-//font1_pointers[0] = &print_0051;
+enum { font1_size = 2 };
+int font1_chars[font1_size] = {0x0051, 0x0057};
+font1_ptr_t font1_ptr[font1_size] = {font1f0051, font1f0057};
 
-//font1_chars[1] = 0x0057; // W
-//font1_pointers[1] = &print_0057;
-
-//font1_chars[2] = 0x0045; // E
-//font1_pointers[2] = &print_0045;
-
-int font1Print(wchar_t *str, int x, int y, int maxWidth) {
+int font1print(wchar_t *str, int x, int y, int maxWidth) {
 	int len = wcslen ( str );
-	if (len > 200) {
+	if (len > 300) {
 		return -1;
 	}
-	wprintf(L"Len %d\n", len);
-
 	int i = 0, k = 0;
 	for (i = 0; i < len; i++) {
 		wchar_t c = str[i];
 		wprintf(L"%lc (%d) (%d)\n", c, c, 0x0051);
 
-		for (k = 0; k < FONT1_SIZE; k++) {
+		for (k = 0; k < font1_size; k++) {
 			if (font1_chars[k] == c) {
 				wprintf(L"SI: %d\n", k);
 			}
@@ -31,7 +22,7 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	}
 }
 
-int print_0051(int x, int y, int c) {
+int font1f0051(int x, int y, int c) {
 pp(x+2,y+43,143,c);
 pp(x+3,y+18,81,c);
 pp(x+3,y+19,170,c);
@@ -648,7 +639,7 @@ pp(x+35,y+36,145,c);
 pp(x+35,y+37,34,c);
 return 38;
 }
-int print_0057(int x, int y, int c) {
+int font1f0057(int x, int y, int c) {
 pp(x+2,y+13,81,c);
 pp(x+2,y+14,158,c);
 pp(x+2,y+15,158,c);
