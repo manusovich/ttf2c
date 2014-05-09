@@ -1,9 +1,10 @@
 typedef int (*font1_ptr_t)( int, int, int );
 
-font1_ptr_t font1_pointers[3];
-int font1_chars[3];
+int font1_symbol_count = 3;
+font1_ptr_t font1_pointers[font1_symbol_count];
+int font1_chars[font1_symbol_count];
 
-/*
+
 font1_chars[0] = 0x0051; // Q
 font1_pointers[0] = &print_0051;
 
@@ -12,7 +13,7 @@ font1_pointers[1] = &print_0057;
 
 font1_chars[2] = 0x0045; // E
 font1_pointers[2] = &print_0045;
-*/
+
 int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	int len = wcslen ( str );
 	if (len > 200) {
@@ -20,10 +21,16 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	}
 	wprintf(L"Len %d\n", len);
 
-	int i = 0;
+	int i = 0, k = 0;
 	for (i = 0; i < len; i++) {
 		wchar_t c = str[i];
 		wprintf(L"%lc (%x)\n", c, c);
+
+		for (k = 0; k < font1_symbol_count; k++) {
+			if (font1_chars[k] == c) {
+				wprintf(L"SI: %d\n", k);
+			}
+		}
 	}
 }
 
