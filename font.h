@@ -22,9 +22,10 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	wchar_t c = str[1];
 	wprintf(L"%lc (%x)\n", c);
 
-	// int i = 0;
-	// for (i = 0; i < len; i++) {
-	// }
+	int i = 0;
+	
+	for (i = 0; i < len; i++) {
+	}
 }
 
 int print_0051(int x, int y, int c) {
