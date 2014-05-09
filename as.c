@@ -39,7 +39,7 @@ int rgb(int r, int g, int b) {
 // helper function for drawing - no more need to go mess with
 // the main function when just want to change what to draw...
 void draw() {
-    clear_screen(rgb(0,0,0))
+    clear_screen(rgb(0,0,0));
     font1print(L"QWEQW", 10, 10, rgb(0xff, 0, 0), 400); 
 }
 
