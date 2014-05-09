@@ -69,8 +69,8 @@ int main(int argc, char* argv[])
     // Store for reset (copy vinfo to vinfo_orig)
     memcpy(&orig_vinfo, &vinfo, sizeof(struct fb_var_screeninfo));
     
-    // Change variable info - force 8 bit
-    vinfo.bits_per_pixel = 8;
+    // Change variable info - force 24 bit
+    vinfo.bits_per_pixel = 24;
     if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &vinfo)) {
         wprintf(L"Error setting variable information.\n");
     }

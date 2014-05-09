@@ -11,7 +11,18 @@ void put_pixel_RGB565(int x, int y, int r, int g, int b)
     // or: c = ((r / 8) * 2048) + ((g / 4) * 32) + (b / 8);
     // write 'two bytes at once'
     *((unsigned short*)(fbp + pix_offset)) = c;
+}
 
+void put_pixel_RGB24(int x, int y, int r, int g, int b)
+{
+    // calculate the pixel's byte offset inside the buffer
+    // note: x * 3 as every pixel is 3 consecutive bytes
+    unsigned int pix_offset = x * 3 + y * finfo.line_length;
+
+    // now this is about the same as 'fbp[pix_offset] = value'
+    *((char*)(fbp + pix_offset)) = r;
+    *((char*)(fbp + pix_offset + 1)) = g;
+    *((char*)(fbp + pix_offset + 2)) = b;
 }
 
 void pp(int x, int y, int intensity, int c) {
@@ -20,6 +31,10 @@ void pp(int x, int y, int intensity, int c) {
 	int g = 0; //((c >> 8) & 0x0FF);
    	int b = 0; //(c & 0x0FF);
 
-	put_pixel_RGB565(x,y,r,g,b);
+	if (vinfo.bits_per_pixel == 16) {
+    	put_pixel_RGB565(x, y, r, g, b);
+    } else {
+        put_pixel_RGB24(x, y, r, g, b);
+    }
 }
 
