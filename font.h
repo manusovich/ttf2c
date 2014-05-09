@@ -1,18 +1,17 @@
 typedef int (*font1_ptr_t)( int, int, int );
 
 int font1_symbol_count = 3;
-font1_ptr_t font1_pointers[font1_symbol_count];
+//font1_ptr_t font1_pointers[font1_symbol_count];
 int font1_chars[font1_symbol_count];
 
-
 font1_chars[0] = 0x0051; // Q
-font1_pointers[0] = &print_0051;
+//font1_pointers[0] = &print_0051;
 
 font1_chars[1] = 0x0057; // W
-font1_pointers[1] = &print_0057;
+//font1_pointers[1] = &print_0057;
 
 font1_chars[2] = 0x0045; // E
-font1_pointers[2] = &print_0045;
+//font1_pointers[2] = &print_0045;
 
 int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	int len = wcslen ( str );
