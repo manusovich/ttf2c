@@ -21,9 +21,9 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 
 	int i = 0;
 	printf("%d\n", len);
-	for (i = 0; i < len; i++) {
-		printf("%s\n", str[i]);
-	}
+	// for (i = 0; i < len; i++) {
+		printf("%s\n", str[1]);
+	// }
 }
 
 int print_0051(int x, int y, int c) {
