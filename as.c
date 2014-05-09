@@ -45,7 +45,9 @@ void draw() {
     int fps = 100;
     int secs = 10;
     
+    
     // loop for a while
+    int i;
     for (i = 0; i < (fps * secs); i++) {
         clear_screen(rgb(0,0,0));
 
