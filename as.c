@@ -38,7 +38,7 @@ void draw() {
     // fill the screen with blue
     // memset(fbp, 1, vinfo.xres * vinfo.yres);
     wchar_t* s = L"QWEQW";
-    font1print(s, 10, 10, ((255&0x0ff)<<16)|((0&0x0ff)<<8)|(0&0x0ff), 400); 
+    font1print(s, 10, 10, 0xff, 0, 0, 400); 
 }
 
 // application entry point
