@@ -18,12 +18,13 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 	if (len > 200) {
 		return -1;
 	}
+		printf(len + ">" + str[i]);
 
-	int i = 0;
+/*	int i = 0;
 	while (str[i] != '\0') {
 		printf(">" + str[i]);
 	}
-}
+*/}
 
 int print_0051(int x, int y, int c) {
 pp(x+2,y+43,143,c);
