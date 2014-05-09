@@ -32,22 +32,35 @@ void put_pixel(int x, int y, int c)
 // the main function when just want to change what to draw...
 void draw() {
     
-    int x, y;
+    //int x, y;
     
     // fill the screen with blue
-    memset(fbp, 1, vinfo.xres * vinfo.yres);
-    
+    // memset(fbp, 1, vinfo.xres * vinfo.yres);
+    int y = 10;
     int o = 10;
-    o += print_M(o,10,15);
-    o += print_a(o,10,15);
-    o += print_n(o,10,15);
-    o += print_u(o,10,15);
-    o += print_s(o,10,15);
-    o += print_o(o,10,15);
-    o += print_v(o,10,15);
-    o += print_i(o,10,15);
-    o += print_c(o,10,15);
-    o += print_h(o,10,15);
+    o += print_M(o,y,15);
+    o += print_a(o,y,15);
+    o += print_n(o,y,15);
+    o += print_u(o,y,15);
+    o += print_s(o,y,15);
+    o += print_o(o,y,15);
+    o += print_v(o,y,15);
+    o += print_i(o,y,15);
+    o += print_c(o,y,15);
+    o += print_h(o,y,15);
+    
+    o = 10;
+    y += 50;
+    o += print_A(o,y,15);
+    o += print_l(o,y,15);
+    o += print_i(o,y,15);
+    o += print_a(o,y,15);
+    o += print_k(o,y,15);
+    o += print_s(o,y,15);
+    o += print_a(o,y,15);
+    o += print_n(o,y,15);
+    o += print_d(o,y,15);
+    o += print_r(o,y,15);
     
 }
 
