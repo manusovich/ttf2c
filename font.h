@@ -20,13 +20,10 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 	}
 
 	printf("%d\n", len);
-
-	printf("1");
-/*	int i = 0;
-	while (str[i] != '\0') {
-		printf(">" + str[i]);
+	for (int i = 0; i < len; i++) {
+		printf("%s\n", s[i]);
 	}
-*/}
+}
 
 int print_0051(int x, int y, int c) {
 pp(x+2,y+43,143,c);
