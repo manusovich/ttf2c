@@ -2,9 +2,7 @@ typedef int (*font1_ptr_t)( int, int, int );
 
 enum { FONT1_SIZE = 3 };
 //font1_ptr_t font1_pointers[font1_symbol_count];
-int font1_chars[FONT1_SIZE];
-
-font1_chars[0] = 0x0051; // Q
+int font1_chars[FONT1_SIZE] = {0x0051, 0x0057, 0x0045};
 //font1_pointers[0] = &print_0051;
 
 //font1_chars[1] = 0x0057; // W
