@@ -27,9 +27,9 @@ void put_pixel_RGB24(int x, int y, int r, int g, int b)
 
 void pp(int x, int y, int intensity, int c) {
     unsigned int pix_offset = x + y * finfo.line_length;
-    int r = 255; //((c >> 16) & 0x0FF);
-	int g = 0; //((c >> 8) & 0x0FF);
-   	int b = 0; //(c & 0x0FF);
+    int r = ((c >> 16) & 0x0FF);
+	int g = ((c >> 8) & 0x0FF);
+   	int b = (c & 0x0FF);
 
 	if (vinfo.bits_per_pixel == 16) {
     	put_pixel_RGB565(x, y, r, g, b);
