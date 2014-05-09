@@ -18,12 +18,12 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	if (len > 200) {
 		return -1;
 	}
-	wprintf(L"Len %d\n", len);
+	wprintf(L"Len %d\n", len;
 
 	int i = 0;
 	for (i = 0; i < len; i++) {
 		wchar_t c = str[i];
-		wprintf(L"%lc (%x)\n", c);
+		wprintf(L"%lc (%x)\n", c, c);
 	}
 }
 
