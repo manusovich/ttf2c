@@ -19,12 +19,11 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 		return -1;
 	}
 
-	int i = 0;
-	printf("%d\n", len);
 	wchar_t c = str[1];
+	wprintf(L"%lc (%x)\n", c);
 
+	// int i = 0;
 	// for (i = 0; i < len; i++) {
-		wprintf(L"%lc (%x)\n", c);
 	// }
 }
 
