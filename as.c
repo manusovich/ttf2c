@@ -42,7 +42,7 @@ int rgb(int r, int g, int b) {
 // the main function when just want to change what to draw...
 void draw() {
 
-    int fps = 100;
+    int fps = 1;
     int secs = 10;
     
     
@@ -52,9 +52,21 @@ void draw() {
         clear_screen(rgb(0,0,0));
 
         int num;
-        num = swprintf(wcsbuf, BUF_SIZE, L"%s", "WQ");
-        num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%i", i);
+        num = swprintf(wcsbuf, BUF_SIZE, L"%s", "W");
 
+        if (rand % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
+        }
+        if (rand % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
+        }
+        if (rand % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
+        }
+        if (rand % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
+        }
+        
         font1print(wcsbuf, 10, 10, rgb(0xff, 0, 0), 400); 
      
         usleep(1000000 / fps);
