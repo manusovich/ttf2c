@@ -6,6 +6,10 @@
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
+#include <wchar.h> //"Широкие" многобайтовые символы и их ввод-вывод
+#include <wctype.h> //"Классификация" широких символов
+#include <locale.h> //Во избежание "крокозяблей" на выводе
+
 
 // 'global' variables to store screen info
 char *fbp = 0;
@@ -31,37 +35,9 @@ void put_pixel(int x, int y, int c)
 // helper function for drawing - no more need to go mess with
 // the main function when just want to change what to draw...
 void draw() {
-    
-    //int x, y;
-    
     // fill the screen with blue
     // memset(fbp, 1, vinfo.xres * vinfo.yres);
-    int y = 10;
-    int o = 10;
-    o += print_M(o,y,15);
-    o += print_a(o,y,15);
-    o += print_n(o,y,15);
-    o += print_u(o,y,15);
-    o += print_s(o,y,15);
-    o += print_o(o,y,15);
-    o += print_v(o,y,15);
-    o += print_i(o,y,15);
-    o += print_c(o,y,15);
-    o += print_h(o,y,15);
-    
-    o = 10;
-    y += 50;
-    o += print_A(o,y,15);
-    o += print_l(o,y,15);
-    o += print_i(o,y,15);
-    o += print_a(o,y,15);
-    o += print_k(o,y,15);
-    o += print_s(o,y,15);
-    o += print_a(o,y,15);
-    o += print_n(o,y,15);
-    o += print_d(o,y,15);
-    o += print_r(o,y,15);
-    
+    font1Print(L"QWE", 10, 10, 400); 
 }
 
 // application entry point
