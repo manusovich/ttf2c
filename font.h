@@ -25,7 +25,7 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 		wchar_t c = str[i];
 		wprintf(L"%lc (%d) (%d)\n", c, c, 0x0051);
 
-		for (k = 0; k < font1_symbol_count; k++) {
+		for (k = 0; k < FONT1_SIZE; k++) {
 			if (font1_chars[k] == c) {
 				wprintf(L"SI: %d\n", k);
 			}
