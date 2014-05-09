@@ -19,6 +19,8 @@ struct fb_fix_screeninfo finfo;
 #include "drawing.h"
 #include "font.h"
 
+#define BUF_SIZE 100
+wchar_t wcsbuf[BUF_SIZE];
 
 
 // helper function to 'plot' a pixel in given color
@@ -39,8 +41,23 @@ int rgb(int r, int g, int b) {
 // helper function for drawing - no more need to go mess with
 // the main function when just want to change what to draw...
 void draw() {
-    clear_screen(rgb(0,0,0));
-    font1print(L"QWEQW", 10, 10, rgb(0xff, 0, 0), 400); 
+
+    int fps = 100;
+    int secs = 10;
+    
+    // loop for a while
+    for (i = 0; i < (fps * secs); i++) {
+        clear_screen(rgb(0,0,0));
+
+        int num;
+        num = swprintf(wcsbuf, BUF_SIZE, L"%s", "WQ");
+        num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%i", i);
+
+        font1print(wcsbuf, 10, 10, rgb(0xff, 0, 0), 400); 
+     
+        usleep(1000000 / fps);
+        // to be exact, would need to time the above and subtract...
+    }
 }
 
 // application entry point
@@ -82,8 +99,8 @@ int main(int argc, char* argv[])
     }
     
     // map fb to user mem
-    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 24;
-    
+    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+
     fbp = (char*)mmap(0,
                       screensize,
                       PROT_READ | PROT_WRITE,
