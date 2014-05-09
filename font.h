@@ -1,4 +1,3 @@
-#include "drawing.h"
 
 int print_Q(int x, int y, int c) {
 pp(x+2,y+43,143,c);
