@@ -82,7 +82,8 @@ int main(int argc, char* argv[])
     }
     
     // map fb to user mem
-    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 24;
+    
     fbp = (char*)mmap(0,
                       screensize,
                       PROT_READ | PROT_WRITE,
