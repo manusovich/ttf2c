@@ -18,8 +18,10 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 	if (len > 200) {
 		return -1;
 	}
-		printf(len + ">" + str[0]);
 
+	printf(len);
+
+	printf("1");
 /*	int i = 0;
 	while (str[i] != '\0') {
 		printf(">" + str[i]);
