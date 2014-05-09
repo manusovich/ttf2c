@@ -9,6 +9,10 @@
 #include "drawing.h"
 #include "font.h"
 
+// 'global' variables to store screen info
+char *fbp = 0;
+struct fb_var_screeninfo vinfo;
+struct fb_fix_screeninfo finfo;
 
 // helper function to 'plot' a pixel in given color
 void put_pixel(int x, int y, int c)
