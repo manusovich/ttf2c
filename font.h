@@ -23,7 +23,7 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 	int i = 0, k = 0;
 	for (i = 0; i < len; i++) {
 		wchar_t c = str[i];
-		wprintf(L"%lc (%x)\n", c, c);
+		wprintf(L"%lc (%d) (%d)\n", c, c, 0x0051);
 
 		for (k = 0; k < font1_symbol_count; k++) {
 			if (font1_chars[k] == c) {
