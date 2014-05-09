@@ -32,14 +32,15 @@ void put_pixel(int x, int y, int c)
     
 }
 
+int rgb(int r, int g, int b) {
+    return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
+}
+
 // helper function for drawing - no more need to go mess with
 // the main function when just want to change what to draw...
 void draw() {
-    // fill the screen with blue
-    // memset(fbp, 1, vinfo.xres * vinfo.yres);
-    wchar_t* s = L"QWEQW";
-    int c = ((0xff & 0x0ff) << 16) | ((0 & 0x0ff)<<8) | (0 & 0x0ff);
-    font1print(s, 10, 10, c, 400); 
+    clear_screen(rgb(0,0,0))
+    font1print(L"QWEQW", 10, 10, rgb(0xff, 0, 0), 400); 
 }
 
 // application entry point

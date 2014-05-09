@@ -1,3 +1,9 @@
+// helper function to clear the screen - fill whole 
+// screen with given color
+void clear_screen(int c) {
+    memset(fbp, c, vinfo.xres * vinfo.yres);
+}
+
 void put_pixel_RGB565(int x, int y, int r, int g, int b)
 {
 
