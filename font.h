@@ -21,11 +21,11 @@ int font1Print(wchar_t *str, int x, int y, int maxWidth) {
 
 	int i = 0;
 	printf("%d\n", len);
-	char c = str[1];
+	wchar_t c = str[1];
 
 	// for (i = 0; i < len; i++) {
 		wprintf(L"%lc\n", c);
-		wprintf(L"%#08x\n", c);
+		wprintf(L"%#06x\n", c);
 	// }
 }
 
