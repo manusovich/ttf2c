@@ -6,13 +6,16 @@
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
-#include "drawing.h"
-#include "font.h"
 
 // 'global' variables to store screen info
 char *fbp = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
+
+#include "drawing.h"
+#include "font.h"
+
+
 
 // helper function to 'plot' a pixel in given color
 void put_pixel(int x, int y, int c)
