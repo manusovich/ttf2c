@@ -22,7 +22,7 @@ int font1Print(char *str, int x, int y, int maxWidth) {
 	int i = 0;
 	printf("%d\n", len);
 	// for (i = 0; i < len; i++) {
-		printf("%s\n", str);
+		printf("%c\n", str[1]);
 	// }
 }
 
