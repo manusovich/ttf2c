@@ -88,6 +88,14 @@ void draw() {
         font1print(wcsbuf, 10, 60, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
+        generateRandomString();
+        font1print(wcsbuf, 10, 120, 
+            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
+
+        generateRandomString();
+        font1print(wcsbuf, 10, 180, 
+            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
+
         usleep(1000000 / fps);
         // to be exact, would need to time the above and subtract...
     }
