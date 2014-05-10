@@ -6,9 +6,9 @@
 #include <fcntl.h>
 #include <linux/fb.h>
 #include <sys/mman.h>
-#include <wchar.h> //"Широкие" многобайтовые символы и их ввод-вывод
-#include <wctype.h> //"Классификация" широких символов
-#include <locale.h> //Во избежание "крокозяблей" на выводе
+#include <wchar.h> 
+#include <wctype.h> 
+#include <locale.h>
 
 
 // 'global' variables to store screen info
@@ -38,20 +38,8 @@ int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
 }
 
-// helper function for drawing - no more need to go mess with
-// the main function when just want to change what to draw...
-void draw() {
-
-    int fps = 1;
-    int secs = 10;
-    
-    
-    // loop for a while
-    int i;
-    for (i = 0; i < (fps * secs); i++) {
-        clear_screen(rgb(0,0,0));
-
-        int num;
+void generateRandomString() {
+      int num;
         num = swprintf(wcsbuf, BUF_SIZE, L"%s", "W");
 
         if (rand() % 20 > 10) {
@@ -66,9 +54,40 @@ void draw() {
         if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
         }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
+        }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
+        }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
+        }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
+        }
+} 
 
-        font1print(wcsbuf, 10, 10, rgb(0xff, 0, 0), 400); 
+// helper function for drawing - no more need to go mess with
+// the main function when just want to change what to draw...
+void draw() {
+
+    int fps = 1;
+    int secs = 20;
+    
+    // loop for a while
+    int i;
+    for (i = 0; i < (fps * secs); i++) {
+        clear_screen(rgb(0,0,0));
+
+        generateRandomString();
+        font1print(wcsbuf, 10, 10, 
+            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
      
+        generateRandomString();
+        font1print(wcsbuf, 10, 60, 
+            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
+
         usleep(1000000 / fps);
         // to be exact, would need to time the above and subtract...
     }
@@ -128,7 +147,6 @@ int main(int argc, char* argv[])
     else {
         // draw...
         draw();
-        sleep(15);
     }
     
     // cleanup
