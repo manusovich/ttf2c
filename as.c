@@ -66,6 +66,12 @@ void generateRandomString() {
         if (rand() % 20 > 10) {
             num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
         }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
+        }
+        if (rand() % 20 > 10) {
+            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
+        }
 } 
 
 // helper function for drawing - no more need to go mess with
