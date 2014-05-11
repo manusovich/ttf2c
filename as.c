@@ -79,21 +79,16 @@ void generateRandomString() {
 void draw() {
 
     int fps = 1;
-    int secs = 20;
+    int secs = 60;
     
     // loop for a while
     int i;
     for (i = 0; i < (fps * secs); i++) {
         clear_screen(rgb(0,0,0));
 
-        fl_print(L"Manusovich", 10, 10, 
-            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
-     
-        fl_print(L"Aliaksandr", 10, 60, 
-            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
-
-        fl_print(L"$123.55", 10, 120, 
-            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
+        fl_print(L"Manusovich", 10, 10, 255, 255, 255, 400); 
+        fl_print(L"Aliaksandr", 10, 55, 255, 255, 255, 400); 
+        fl_print(L"$123.55", 10, 110, 0, 255, 0, 400); 
 
         usleep(1000000 / fps);
         // to be exact, would need to time the above and subtract...
