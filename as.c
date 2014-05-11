@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
         //buf[numbytes] = '\0';
 
         int z = 0;
-        for (z = 3; z < numbytes; z++) {
+        for (z = 0; z < numbytes; z++) {
             char c = buf[z];
             wprintf(L"%d-%c\n",z,c);
         }
