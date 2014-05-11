@@ -169,9 +169,8 @@ int main(int argc, char* argv[])
             exit(1);
         }
 
-        buf[numbytes] = '\0';
+        //buf[numbytes] = '\0';
 
-        wprintf(L"client: received '%ls'\n",buf);
         wprintf(L"client: received '%s'\n",buf);
         wprintf(L"client: received '%d'\n",numbytes);
 }
