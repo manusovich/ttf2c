@@ -162,6 +162,8 @@ int main(int argc, char* argv[])
 
         freeaddrinfo(servinfo); // all done with this structure
 
+  while (1) {
+
         if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
             wprintf(L"recv");
             exit(1);
@@ -170,7 +172,9 @@ int main(int argc, char* argv[])
         buf[numbytes] = '\0';
 
         wprintf(L"client: received '%ls'\n",buf);
-
+        wprintf(L"client: received '%s'\n",buf);
+        wprintf(L"client: received '%d'\n",numbytes);
+}
         close(sockfd);
 
 
