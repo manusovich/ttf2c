@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
     }
     else {
         int sockfd, numbytes;  
-        wchar_t buf[MAXDATASIZE];
+        char buf[MAXDATASIZE];
         struct addrinfo hints, *servinfo, *p;
         int rv;
         char s[INET6_ADDRSTRLEN];
@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
         int z = 0;
         for (z = 0; z < numbytes; z++) {
             wchar_t c = buf[z];
-            wprintf(L"-%c-\n",c);
+            wprintf(L"-%c\n",c);
         }
 
         wprintf(L"client: received '%s'\n",buf);
