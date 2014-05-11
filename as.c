@@ -170,19 +170,11 @@ int main(int argc, char* argv[])
                 exit(1);
             }
 
+            clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf);
             fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
-
-            // int z = 0;
-            // for (z = 0; z < numbytes-1; z++) {
-            //     char c = buf[z];
-            //     wprintf(L"%d-%c-%d\n",z,c,c);
-            // }
         }
         close(sockfd);
-
-        // draw...
-//        draw();
     }
     
     // cleanup
