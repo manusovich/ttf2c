@@ -173,7 +173,8 @@ int main(int argc, char* argv[])
 
         int z = 0;
         for (z = 0; z < numbytes; z++) {
-            wprintf(L"'%d'\n",((int)buf[z]));
+            wchar_t c = buf[z];
+            wprintf(L"-%c-\n",c);
         }
 
         wprintf(L"client: received '%s'\n",buf);
