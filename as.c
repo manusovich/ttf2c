@@ -86,20 +86,13 @@ void draw() {
     for (i = 0; i < (fps * secs); i++) {
         clear_screen(rgb(0,0,0));
 
-        generateRandomString();
-        fl_print(wcsbuf, 10, 10, 
+        fl_print(L"Manusovich", 10, 10, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
      
-        generateRandomString();
-        fl_print(wcsbuf, 10, 60, 
+        fl_print(L"Aliaksandr", 10, 60, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
-        generateRandomString();
-        fl_print(wcsbuf, 10, 120, 
-            rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
-
-        generateRandomString();
-        fl_print(wcsbuf, 10, 180, 
+        fl_print(L"$123.55", 10, 120, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
         usleep(1000000 / fps);
