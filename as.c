@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 
         if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
         {
-            perror("socket");
+            wprintf(L"Socket error");
             exit(1);
         }
 
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
         while (1)
            {
 
-            printf("Type Something (q or Q to quit):");
+            wprintf(L"Type Something (q or Q to quit):");
             gets(send_data);
 
             if ((strcmp(send_data , "q") == 0) || strcmp(send_data , "Q") == 0)
@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
 
                  bytes_recv = recvfrom(sock,recv_data,1024,0,(struct sockaddr *)&server_addr,&sin_size);
                   recv_data[bytes_recv]= '\0';
-             printf("Received :%s\n",recv_data);
+             wprintf(L"Received :%s\n",recv_data);
         }
 
         // draw...
