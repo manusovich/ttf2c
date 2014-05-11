@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
         server_addr.sin_addr.s_addr = INADDR_ANY;
         server_addr.sin_family = AF_INET;
 
-        if(bind(socket, (struct sockaddr *)&server_addr,sizeof(struct sockaddr_in) ) == -1)
+        if(bind(sock, (struct sockaddr *)&server_addr,sizeof(struct sockaddr_in) ) == -1)
         {
             if( errno == EADDRINUSE )
             {
