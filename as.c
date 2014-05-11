@@ -87,19 +87,19 @@ void draw() {
         clear_screen(rgb(0,0,0));
 
         generateRandomString();
-        font1print(wcsbuf, 10, 10, 
+        fl_print(wcsbuf, 10, 10, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
      
         generateRandomString();
-        font1print(wcsbuf, 10, 60, 
+        fl_print(wcsbuf, 10, 60, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
         generateRandomString();
-        font1print(wcsbuf, 10, 120, 
+        fl_print(wcsbuf, 10, 120, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
         generateRandomString();
-        font1print(wcsbuf, 10, 180, 
+        fl_print(wcsbuf, 10, 180, 
             rgb(100 + rand() % 155, 100 + rand() % 155, 100 + rand() % 155), 400); 
 
         usleep(1000000 / fps);
@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
     }
     
     // map fb to user mem
-    screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+    screensize = vinfo.xres * vinfo.yres * 2 * vinfo.bits_per_pixel / 8;
 
     fbp = (char*)mmap(0,
                       screensize,
