@@ -1,3 +1,6 @@
+#include <wchar.h> 
+#include <wctype.h> 
+#include <locale.h>
 #include "fl.h"
 
 int fl_ch81(int x, int y, int c) {
