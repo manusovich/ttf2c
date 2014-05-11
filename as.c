@@ -10,14 +10,13 @@
 #include <wctype.h> 
 #include <locale.h>
 
-
 // 'global' variables to store screen info
 char *fbp = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
 #include "drawing.h"
-#include "font.h"
+#include "fl.h"
 
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
