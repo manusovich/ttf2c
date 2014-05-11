@@ -29,6 +29,7 @@ struct fb_fix_screeninfo finfo;
 
 #include "drawing.h"
 #include "fl.h"
+#include "fs.h"
 
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
@@ -172,7 +173,7 @@ int main(int argc, char* argv[])
 
             clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf);
-            fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+            fs_print(wcsbuf, 200, 250, rgb(255, 255, 255), 400); 
         }
         close(sockfd);
     }
