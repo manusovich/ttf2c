@@ -171,6 +171,11 @@ int main(int argc, char* argv[])
 
         //buf[numbytes] = '\0';
 
+        int z = 0;
+        for (z = 0; z < numbytes; z++) {
+            wprintf(L"'%d'\n",((int)buf[z]));
+        }
+
         wprintf(L"client: received '%s'\n",buf);
         wprintf(L"client: received '%d'\n",numbytes);
 }
