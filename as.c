@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
     }
     else {
         int sockfd, numbytes;  
-        char buf[MAXDATASIZE];
+        wchar_t buf[MAXDATASIZE];
         struct addrinfo hints, *servinfo, *p;
         int rv;
         char s[INET6_ADDRSTRLEN];
