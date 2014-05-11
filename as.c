@@ -174,11 +174,8 @@ int main(int argc, char* argv[])
         int z = 0;
         for (z = 0; z < numbytes; z++) {
             char c = buf[z];
-            wprintf(L"-%c\n",c);
+            wprintf(L"%d-%c\n",z,c);
         }
-
-        wprintf(L"client: received '%s'\n",buf);
-        wprintf(L"client: received '%d'\n",numbytes);
 }
         close(sockfd);
 
