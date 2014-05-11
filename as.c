@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <netdb.h>
-#include <sys/type1s.h>
+#include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
