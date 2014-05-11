@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
         struct hostent *host;
         char send_data[1024],recv_data[1024];
 
-        host= (struct hostent *) gethostbyname((char *)"192.168.105.81");
+     //   host= (struct hostent *) gethostbyname((char *)"192.168.105.81");
 
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
         {
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
         }
 
         server_addr.sin_port = htons(8088);
-        server_addr.sin_addr.s_addr = 0;
+        server_addr.sin_addr.s_addr = inet_addr("192.168.105.81");
         server_addr.sin_addr.s_addr = INADDR_ANY;
         server_addr.sin_family = AF_INET;
 
@@ -132,11 +132,13 @@ int main(int argc, char* argv[])
             {
                 // handle port already open case
             wprintf(L"Socket error 1");
+              exit(1);
                       }
             else
             {
                 // handle other errors
             wprintf(L"Socket error 2");
+              exit(1);
             }
         
               while (1)
