@@ -162,90 +162,22 @@ int main(int argc, char* argv[])
 
         freeaddrinfo(servinfo); // all done with this structure
 
-  while (1) {
-
-        if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
-            wprintf(L"recv");
-            exit(1);
-        }
-
-        //buf[numbytes] = '\0';
-
-        int z = 0;
-        for (z = 0; z < numbytes; z++) {
-            char c = buf[z];
-            wprintf(L"%d-%c-%d\n",z,c,c);
-        }
-}
-        close(sockfd);
-
-
-
-
-
-
-
-
-/*
-
-
-
-
-
-        int sock,bytes_recv,sin_size;
-        struct sockaddr_in server_addr;
-        struct hostent *host;
-        char send_data[1024],recv_data[1024];
-
-     //   host= (struct hostent *) gethostbyname((char *)"192.168.105.81");
-
-        if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-        {
-            wprintf(L"Socket error");
-            exit(1);
-        }
-
-        server_addr.sin_port = htons(8088);
-        server_addr.sin_addr.s_addr = inet_addr("192.168.105.81");
-        server_addr.sin_addr.s_addr = INADDR_ANY;
-        server_addr.sin_family = AF_INET;
-
-        if(bind(sock, (struct sockaddr *)&server_addr,sizeof(struct sockaddr_in) ) == -1)
-        {
-            if( errno == EADDRINUSE )
-            {
-                // handle port already open case
-            wprintf(L"Socket error 1");
-              //exit(1);
-                      }
-            else
-            {
-                // handle other errors
-            wprintf(L"Socket error 2");
-              //exit(1);
+        while (1) {
+            if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+                wprintf(L"recv");
+                exit(1);
             }
-        
-              while (1)
-                       {
 
-                        wprintf(L"Type Something (q or Q to quit):");
-                        gets(send_data);
+            swprintf(wcsbuf, BUF_SIZE, L"%s", buf);
+            fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
 
-                        if ((strcmp(send_data , "q") == 0) || strcmp(send_data , "Q") == 0)
-                           break;
-
-                        else
-                           sendto(sock, send_data, strlen(send_data), 0,
-                                  (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
-
-                             bytes_recv = recvfrom(sock,recv_data,1024,0,(struct sockaddr *)&server_addr,&sin_size);
-                              recv_data[bytes_recv]= '\0';
-                         wprintf(L"Received :%s\n",recv_data);
-                    }
+            // int z = 0;
+            // for (z = 0; z < numbytes-1; z++) {
+            //     char c = buf[z];
+            //     wprintf(L"%d-%c-%d\n",z,c,c);
+            // }
         }
-
-
-      */
+        close(sockfd);
 
         // draw...
 //        draw();
