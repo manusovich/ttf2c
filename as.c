@@ -21,62 +21,16 @@ struct fb_fix_screeninfo finfo;
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
 
-
-// helper function to 'plot' a pixel in given color
-void put_pixel(int x, int y, int c)
-{
-    // calculate the pixel's byte offset inside the buffer
+void put_pixel(int x, int y, int c) {
     unsigned int pix_offset = x + y * finfo.line_length;
-    
-    // now this is about the same as 'fbp[pix_offset] = value'
     *((char*)(fbp + pix_offset)) = c;
-    
 }
 
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
 }
 
-void generateRandomString() {
-      int num;
-        num = swprintf(wcsbuf, BUF_SIZE, L"%s", "W");
-
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "Q");
-        }
-        if (rand() % 20 > 10) {
-            num += swprintf(wcsbuf + num, BUF_SIZE - num, L"%s", "W");
-        }
-} 
-
-// helper function for drawing - no more need to go mess with
-// the main function when just want to change what to draw...
 void draw() {
-
     int fps = 1;
     int secs = 60;
     
@@ -85,9 +39,9 @@ void draw() {
     for (i = 0; i < (fps * secs); i++) {
         clear_screen(rgb(0,0,0));
 
-        fl_print(L"Manusovich", 10, 10, rgb(255, 255, 255), 400); 
-        fl_print(L"Aliaksandr", 10, 55, rgb(255, 255, 255), 400); 
-        fl_print(L"$123.55", 10, 110, rgb(0, 255, 0), 400); 
+        fl_print(L"Nick", 10, 10, rgb(255, 255, 255), 400); 
+        fl_print(L"Batra", 10, 55, rgb(255, 255, 255), 400); 
+        fl_print(L"$23.55", 10, 110, rgb(0, 255, 0), 400); 
 
         usleep(1000000 / fps);
         // to be exact, would need to time the above and subtract...
