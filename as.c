@@ -9,14 +9,18 @@
 #include <wchar.h> 
 #include <wctype.h> 
 #include <locale.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <netdb.h>
+#include <sys/type1s.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+
+#define PORT "8088" // the port client will be connecting to 
+#define MAXDATASIZE 100 // max number of bytes we can get at once 
 
 // 'global' variables to store screen info
 char *fbp = 0;
@@ -36,6 +40,13 @@ void put_pixel(int x, int y, int c) {
 
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
+}
+
+void *get_in_addr(struct sockaddr *sa) {
+    if (sa->sa_family == AF_INET) {
+        return &(((struct sockaddr_in*)sa)->sin_addr);
+    }
+    return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
 void draw() {
@@ -108,6 +119,73 @@ int main(int argc, char* argv[])
         wprintf(L"Failed to mmap.\n");
     }
     else {
+        int sockfd, numbytes;  
+        wchar_t buf[MAXDATASIZE];
+        struct addrinfo hints, *servinfo, *p;
+        int rv;
+        char s[INET6_ADDRSTRLEN];
+
+        memset(&hints, 0, sizeof hints);
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_STREAM;
+
+        if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
+            wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
+            return 1;
+        }
+
+        // loop through all the results and connect to the first we can
+        for(p = servinfo; p != NULL; p = p->ai_next) {
+            if ((sockfd = socket(p->ai_family, p->ai_socktype,
+                    p->ai_protocol)) == -1) {
+                wprintf(L"client: socket");
+                continue;
+            }
+
+            if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+                close(sockfd);
+                wprintf(L"client: connect");
+                continue;
+            }
+
+            break;
+        }
+
+        if (p == NULL) {
+            wprintf(L"client: failed to connect\n");
+            return 2;
+        }
+
+        inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
+                s, sizeof s);
+        wprintf(L"client: connecting to %s\n", s);
+
+        freeaddrinfo(servinfo); // all done with this structure
+
+        if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+            wprintf(L"recv");
+            exit(1);
+        }
+
+        buf[numbytes] = '\0';
+
+        wprintf(L"client: received '%ls'\n",buf);
+
+        close(sockfd);
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
         int sock,bytes_recv,sin_size;
         struct sockaddr_in server_addr;
         struct hostent *host;
@@ -132,13 +210,13 @@ int main(int argc, char* argv[])
             {
                 // handle port already open case
             wprintf(L"Socket error 1");
-              exit(1);
+              //exit(1);
                       }
             else
             {
                 // handle other errors
             wprintf(L"Socket error 2");
-              exit(1);
+              //exit(1);
             }
         
               while (1)
@@ -161,7 +239,7 @@ int main(int argc, char* argv[])
         }
 
 
-      
+      */
 
         // draw...
 //        draw();
