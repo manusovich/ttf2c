@@ -12,8 +12,8 @@ pp(x+1,y+3,110,c);pp(x+1,y+4,207,c);pp(x+1,y+5,248,c);pp(x+1,y+6,255,c);pp(x+1,y
 typedef int (*fs_ptr_t)( int, int, int );
 
 enum { fs_size = 69 };
-int fs_chars[fs_size] = {81,87,69,82,84,89,85,73,79,80,65,83,68,70,71,72,74,75,76,90,88,67,86,66,78,77,113,119,101,114,116,121,117,105,111,112,97,115,100,102,103,104,106,107,108,122,120,99,118,98,110,109,49,50,51,52,53,54,55,56,57,48,36,46,40,41,45,43,58};
-fs_ptr_t fs_ptr[fs_size] = {&fs_ch81,&fs_ch87,&fs_ch69,&fs_ch82,&fs_ch84,&fs_ch89,&fs_ch85,&fs_ch73,&fs_ch79,&fs_ch80,&fs_ch65,&fs_ch83,&fs_ch68,&fs_ch70,&fs_ch71,&fs_ch72,&fs_ch74,&fs_ch75,&fs_ch76,&fs_ch90,&fs_ch88,&fs_ch67,&fs_ch86,&fs_ch66,&fs_ch78,&fs_ch77,&fs_ch113,&fs_ch119,&fs_ch101,&fs_ch114,&fs_ch116,&fs_ch121,&fs_ch117,&fs_ch105,&fs_ch111,&fs_ch112,&fs_ch97,&fs_ch115,&fs_ch100,&fs_ch102,&fs_ch103,&fs_ch104,&fs_ch106,&fs_ch107,&fs_ch108,&fs_ch122,&fs_ch120,&fs_ch99,&fs_ch118,&fs_ch98,&fs_ch110,&fs_ch109,&fs_ch49,&fs_ch50,&fs_ch51,&fs_ch52,&fs_ch53,&fs_ch54,&fs_ch55,&fs_ch56,&fs_ch57,&fs_ch48,&fs_ch36,&fs_ch46,&fs_ch40,&fs_ch41,&fs_ch45,&fs_ch43,&fs_ch58};
+int fs_chars[fs_size] = {81};
+fs_ptr_t fs_ptr[fs_size] = {&fs_ch81};
 
 int fs_print(wchar_t *str, int x, int y, int color, int maxWidth) {
 	int len = wcslen ( str );

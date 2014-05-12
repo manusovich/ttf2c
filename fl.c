@@ -11,8 +11,8 @@ pp(x+3,y+20,126,c);pp(x+3,y+21,185,c);pp(x+3,y+22,214,c);pp(x+3,y+23,233,c);pp(x
 typedef int (*fl_ptr_t)( int, int, int );
 
 enum { fl_size = 68 };
-int fl_chars[fl_size] = {81,87,69,82,84,89,85,73,79,80,65,83,68,70,71,72,74,75,76,90,88,67,86,66,78,77,113,119,101,114,116,121,117,105,111,112,97,115,100,102,103,104,106,107,108,122,120,99,118,98,110,109,49,50,51,52,53,54,55,56,57,48,36,46,40,41,45,43};
-fl_ptr_t fl_ptr[fl_size] = {&fl_ch81,&fl_ch87,&fl_ch69,&fl_ch82,&fl_ch84,&fl_ch89,&fl_ch85,&fl_ch73,&fl_ch79,&fl_ch80,&fl_ch65,&fl_ch83,&fl_ch68,&fl_ch70,&fl_ch71,&fl_ch72,&fl_ch74,&fl_ch75,&fl_ch76,&fl_ch90,&fl_ch88,&fl_ch67,&fl_ch86,&fl_ch66,&fl_ch78,&fl_ch77,&fl_ch113,&fl_ch119,&fl_ch101,&fl_ch114,&fl_ch116,&fl_ch121,&fl_ch117,&fl_ch105,&fl_ch111,&fl_ch112,&fl_ch97,&fl_ch115,&fl_ch100,&fl_ch102,&fl_ch103,&fl_ch104,&fl_ch106,&fl_ch107,&fl_ch108,&fl_ch122,&fl_ch120,&fl_ch99,&fl_ch118,&fl_ch98,&fl_ch110,&fl_ch109,&fl_ch49,&fl_ch50,&fl_ch51,&fl_ch52,&fl_ch53,&fl_ch54,&fl_ch55,&fl_ch56,&fl_ch57,&fl_ch48,&fl_ch36,&fl_ch46,&fl_ch40,&fl_ch41,&fl_ch45,&fl_ch43};
+int fl_chars[fl_size] = {81};
+fl_ptr_t fl_ptr[fl_size] = {&fl_ch81};
 
 int fl_print(wchar_t *str, int x, int y, int color, int maxWidth) {
 	int len = wcslen ( str );
