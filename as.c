@@ -216,7 +216,7 @@ int main(int argc, char* argv[])
             char *array[10];
             int k = 0;
             array[k] = strtok(buf, "\n");
-            while(array[k] != NULL)             {
+            while(array[k] != NULL){
                 array[++k] = strtok(NULL, "\n");
             }
 
