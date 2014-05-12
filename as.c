@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
                         int x = 0, y = 0;
                         for (x = 370; x < 480; x++) {
                             for (y = 240; y < 272; y++) {
-                                put_pixel(x, y, rgb(1,1,1));
+                                put_pixel(x, y, rgb(100,100,100));
                             }
                         }
                         fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
