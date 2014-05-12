@@ -222,8 +222,16 @@ int main(int argc, char* argv[])
 
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
                     if (buf2[0] == '1' && buf2[1] == '0') {
-                        fs_print(wcsbuf, 370, 250, rgb(255, 255, 255), 400); 
+                        fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
                     }
+
+                    if (buf2[0] == '2' && buf2[1] == '0') {
+                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                    }
+                    if (buf2[0] == '2' && buf2[1] == '1') {
+                        fs_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+                    }
+
 
                     wprintf(L"%s\n", buf2);
                 } else {
