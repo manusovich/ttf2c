@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             
             int code = buf[0];
-            wprintf(L"< %d %s\n", code, wcsbuf);
+            wprintf("< %d %s\n", code, wcsbuf);
          // time
             if (code == 10) {
                 // fs_print(wcsbuf, 0, 0, rgb(255, 255, 255), 400); 
