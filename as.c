@@ -214,12 +214,21 @@ int main(int argc, char* argv[])
             }
             // read section id
             clear_screen(rgb(0,0,0));
-            
-            
-
-            //
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
-            fs_print(wcsbuf, 380, 250, rgb(255, 255, 255), 400); 
+            
+            int code = buf[0];
+            // time
+            if (code == 10) {
+                fs_print(wcsbuf, 380, 250, rgb(255, 255, 255), 400); 
+            }
+            // first name
+            if (code == 21) {
+                fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+            }
+            // last name
+            if (code == 22) {
+                fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+            }
         }
         close(sockfd);
     }
