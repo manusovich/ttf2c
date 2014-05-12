@@ -92,6 +92,15 @@ void *get_in_addr(struct sockaddr *sa) {
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
+void clear_area(int x1, int y1, int x2, int y2) {
+    int x = 0, y = 0;
+    for (x = x1; x < x2; x++) {
+        for (y = y1; y < y2; y++) {
+            pp(x, y, 0xff, rgb(0,0,0));
+        }
+    }
+}
+
 void draw() {
     int fps = 1;
     int secs = 60;
@@ -223,19 +232,17 @@ int main(int argc, char* argv[])
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
-                        int x = 0, y = 0;
-                        for (x = 370; x < 480; x++) {
-                            for (y = 240; y < 272; y++) {
-                                pp(x, y, 0xff, rgb(0,0,0));
-                            }
-                        }
+                        clear_area(370, 240, 480, 272);
                         fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
+                        clear_area(10, 10, 480, 55);
                         fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
                     }
+
                     if (buf2[0] == '2' && buf2[1] == '1') {
+                        clear_area(10, 55, 480, 100);
                         fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
