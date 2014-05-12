@@ -236,22 +236,22 @@ int main(int argc, char* argv[])
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
                         clear_area(10, 10, 480, 55);
-                        fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
+                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
                         clear_area(10, 55, 480, 100);
-                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                        fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
                         clear_area(10, 100, 480, 145);
-                        fl_print(wcsbuf, 10, 10, rgb(0, 255, 0), 400); 
+                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
                     }
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(370, 240, 480, 272);
-                        fl_print(wcsbuf, 10, 55, rgb(0, 0, 255), 400); 
+                        fs_print(wcsbuf, 370, 240, rgb(0, 0, 255), 400); 
                     }
 
 
