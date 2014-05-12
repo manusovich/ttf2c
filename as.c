@@ -1,3 +1,6 @@
+#define MAIN_FILE
+
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
