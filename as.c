@@ -230,7 +230,7 @@ int main(int argc, char* argv[])
             //clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             
-            int code = buf[0];
+            char code = buf[0];
             wprintf(L"%d %d \n", code, numbytes);
          // time
             if (code == 10) {
