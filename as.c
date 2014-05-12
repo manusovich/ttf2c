@@ -251,7 +251,7 @@ int main(int argc, char* argv[])
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(370, 240, 480, 272);
-                        fs_print(wcsbuf, 370, 240, rgb(200, 200, 200), 400); 
+                        fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
                     }
 
 
