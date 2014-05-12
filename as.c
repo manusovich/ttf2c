@@ -233,7 +233,7 @@ int main(int argc, char* argv[])
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(370, 240, 480, 272);
-                        fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
+                        fs_print(wcsbuf, 370, 240, rgb(0, 0, 255), 400); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
@@ -246,8 +246,11 @@ int main(int argc, char* argv[])
                         fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
+                    if (buf2[0] == '5' && buf2[1] == '0') {
+                        clear_area(10, 100, 480, 145);
+                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
+                    }
 
-                    //wprintf(L"%s\n", buf2);
                 } else {
                     buf2[k] = buf[i];
                     k++;
