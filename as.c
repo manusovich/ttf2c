@@ -219,7 +219,12 @@ int main(int argc, char* argv[])
                 if (buf[i] == '\n' && k > 0) {
                     buf2[k]='\0';
                     k = 0;
-                    
+
+                    swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
+                    if (buf2[0] == '1' && buf2[1] == '0') {
+                        fs_print(wcsbuf, 370, 250, rgb(255, 255, 255), 400); 
+                    }
+
                     wprintf(L"%s\n", buf2);
                 } else {
                     buf2[k] = buf[i];
@@ -228,18 +233,8 @@ int main(int argc, char* argv[])
             }
 
 
-/*   
-            char *array[10];
-            int k = 0;
-            array[k] = strtok(buf, "\n");
-            while(array[k] != NULL){
-                array[++k] = strtok(NULL, "\n");
-            }
-
-*/
             // read section id
             //clear_screen(rgb(0,0,0));
-            swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             
             // char code = buf[0];
             // wprintf(L"%d %d \n", code, numbytes);
@@ -253,7 +248,7 @@ int main(int argc, char* argv[])
 
          // time
             // if (code == 10) {
-                // fs_print(wcsbuf, 0, 0, rgb(255, 255, 255), 400); 
+             
             // }
             // first name
             // if (code == 21) {
