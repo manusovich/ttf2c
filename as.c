@@ -139,14 +139,18 @@ int main(int argc, char* argv[])
     // map fb to user mem
     screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
 
+    wprintf(L"1\n");
     fbp = (char*)mmap(0,
                       screensize,
                       PROT_READ | PROT_WRITE,
                       MAP_SHARED,
                       fbfd,
                       0);
+    wprintf(L"2\n");
+  
     fbp2 = (char*) malloc(screensize);
-    
+      wprintf(L"3\n");
+  
     if ((int)fbp == -1) {
         wprintf(L"Failed to mmap.\n");
     }
@@ -244,7 +248,7 @@ int main(int argc, char* argv[])
 
 
             // display
-            memcpy ( &fbp, &fbp2, screensize );
+            memcpy ( fbp, fbp2, screensize );
         }
         close(sockfd);
     }
