@@ -213,12 +213,19 @@ int main(int argc, char* argv[])
                 exit(1);
             }
    
+            char *array[10];
+            int k = 0;
+            array[k] = strtok(buf, "\n");
+            while(array[k] != NULL)             {
+                array[++k] = strtok(NULL, "\n");
+            }
+
             // read section id
             //clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             
             int code = buf[0];
-            wprintf(L"%d %d\n", code, numbytes);
+            wprintf(L"%d %d %d\n", code, numbytes, k);
          // time
             if (code == 10) {
                 // fs_print(wcsbuf, 0, 0, rgb(255, 255, 255), 400); 
