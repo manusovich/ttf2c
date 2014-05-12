@@ -1,3 +1,4 @@
+#include <wchar.h> 
 #include "fl.h"
 #include "drawing.h"
 
