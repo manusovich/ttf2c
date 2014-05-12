@@ -213,7 +213,8 @@ int main(int argc, char* argv[])
                 exit(1);
             }
 
-            clear_screen(rgb(0,0,0));
+            clear_screen(rgb(0,0,0) );
+            clear_screen(rgb(0,0,0) );
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf);
             fs_print(wcsbuf, 360, 250, rgb(255, 255, 255), 400); 
         }
