@@ -247,7 +247,8 @@ int main(int argc, char* argv[])
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(10, 100, 480, 145);
+                        clear_area(0, 100, 480, 145);
+
                         fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
                     }
 
