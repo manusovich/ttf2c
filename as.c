@@ -217,6 +217,7 @@ int main(int argc, char* argv[])
             int i = 0, k = 0;
             for (i = 0; i < numbytes; i++) {
                 if (buf[i] == '\n' && k > 0) {
+                    buf2[k]='\0';
                     wprintf(L"%s\n", buf2);
                     k == 0;
                 } else {
