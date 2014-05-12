@@ -1,3 +1,28 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <fcntl.h>
+#include <linux/fb.h>
+#include <sys/mman.h>
+#include <wchar.h> 
+#include <wctype.h> 
+
+// 'global' variables to store screen info
+char *fbp = 0;
+struct fb_var_screeninfo vinfo;
+struct fb_fix_screeninfo finfo;
+
+void put_pixel(int x, int y, int c) {
+    unsigned int pix_offset = x + y * finfo.line_length;
+    *((char*)(fbp + pix_offset)) = c;
+}
+
+int rgb(int r, int g, int b) {
+    return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
+}
+
 // helper function to clear the screen - fill whole 
 // screen with given color
 void clear_screen(int c) {
