@@ -224,9 +224,9 @@ int main(int argc, char* argv[])
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         int x = 0, y = 0;
-                        for (x = 370; x < 480; x++) {
+                        for (x = 0; x < 480; x++) {
                             for (y = 240; y < 272; y++) {
-                                put_pixel(y, x, rgb(100,100,100));
+                                put_pixel(x, y, rgb(100,100,100));
                             }
                         }
                         fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
