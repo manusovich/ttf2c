@@ -21,27 +21,12 @@
 
 #define PORT "8088" // the port client will be connecting to 
 #define MAXDATASIZE 100 // max number of bytes we can get at once 
-
-// 'global' variables to store screen info
-char *fbp = 0;
-struct fb_var_screeninfo vinfo;
-struct fb_fix_screeninfo finfo;
-
 #include "drawing.h"
 #include "fl.h"
 #include "fs.h"
 
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
-
-void put_pixel(int x, int y, int c) {
-    unsigned int pix_offset = x + y * finfo.line_length;
-    *((char*)(fbp + pix_offset)) = c;
-}
-
-int rgb(int r, int g, int b) {
-    return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
-}
 
 void *get_in_addr(struct sockaddr *sa) {
     if (sa->sa_family == AF_INET) {
