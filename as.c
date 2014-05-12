@@ -229,11 +229,11 @@ int main(int argc, char* argv[])
                         fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
                     }
                     if (buf2[0] == '2' && buf2[1] == '1') {
-                        fs_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+                        fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
 
-                    wprintf(L"%s\n", buf2);
+                    //wprintf(L"%s\n", buf2);
                 } else {
                     buf2[k] = buf[i];
                     k++;
