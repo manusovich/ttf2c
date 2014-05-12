@@ -219,7 +219,7 @@ int main(int argc, char* argv[])
             int code = buf[0];
             // time
             if (code == 10) {
-                fs_print(wcsbuf, 0, 250, rgb(255, 255, 255), 400); 
+                fs_print(wcsbuf, 0, 0, rgb(255, 255, 255), 400); 
             }
             // first name
             if (code == 21) {
