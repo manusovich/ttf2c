@@ -223,8 +223,9 @@ int main(int argc, char* argv[])
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
-                        for (int x = 370; x < 480; x++) {
-                            for (int y = 240; y < 272; y++) {
+                        int x = 0, y = 0;
+                        for (x = 370; x < 480; x++) {
+                            for (y = 240; y < 272; y++) {
                                 put_pixel(x, y, rgb(0,0,0));
                             }
                         }
