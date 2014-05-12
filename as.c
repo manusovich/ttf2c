@@ -220,6 +220,12 @@ int main(int argc, char* argv[])
                 array[++k] = strtok(NULL, "\n");
             }
 
+            int z = 0;
+            for (z = 0; z < k; z++) {
+                int c = array[z][0];
+                wprintf(L"%d\n", code);
+            }
+
             // read section id
             //clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
