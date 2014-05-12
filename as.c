@@ -221,7 +221,13 @@ int main(int argc, char* argv[])
                     k = 0;
 
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
+
                     if (buf2[0] == '1' && buf2[1] == '0') {
+                        for (int x = 370; x < 480; x++) {
+                            for (int y = 240; y < 272; y++) {
+                                put_pixel(x, y, rgb(0,0,0));
+                            }
+                        }
                         fs_print(wcsbuf, 370, 240, rgb(255, 255, 255), 400); 
                     }
 
@@ -239,33 +245,6 @@ int main(int argc, char* argv[])
                     k++;
                 }
             }
-
-
-            // read section id
-            //clear_screen(rgb(0,0,0));
-            
-            // char code = buf[0];
-            // wprintf(L"%d %d \n", code, numbytes);
-
-            // int z = 0;
-            // for (z = 0; z < numbytes; z++) {
-            //     char c = buf[z];
-            //     wprintf(L"-%c\n", c);
-            // }
-
-
-         // time
-            // if (code == 10) {
-             
-            // }
-            // first name
-            // if (code == 21) {
-                // fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
-            // }
-            // last name
-            // if (code == 22) {
-                // fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
-            // }
         }
         close(sockfd);
     }
