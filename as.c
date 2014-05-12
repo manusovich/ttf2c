@@ -181,10 +181,13 @@ int main(int argc, char* argv[])
         hints.ai_family = AF_UNSPEC;
         hints.ai_socktype = SOCK_STREAM;
 
+        wprintf(L"Resolve address");
         if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
             wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
             return 1;
         }
+
+        wprintf(L"Open socket");
 
         // loop through all the results and connect to the first we can
         for(p = servinfo; p != NULL; p = p->ai_next) {
