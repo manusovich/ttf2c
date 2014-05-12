@@ -228,11 +228,11 @@ int main(int argc, char* argv[])
             char code = buf[0];
             wprintf(L"%d %d \n", code, numbytes);
 
-            int z = 0;
-            for (z = 0; z < numbytes; z++) {
-                char c = buf[z];
-                wprintf(L"-%c\n", c);
-            }
+            // int z = 0;
+            // for (z = 0; z < numbytes; z++) {
+            //     char c = buf[z];
+            //     wprintf(L"-%c\n", c);
+            // }
 
 
          // time
