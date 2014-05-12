@@ -212,10 +212,13 @@ int main(int argc, char* argv[])
                 wprintf(L"recv");
                 exit(1);
             }
+            // read section id
+            clear_screen(rgb(0,0,0));
+            
+            
 
-            clear_screen(rgb(0,0,0) );
-            clear_screen(rgb(0,0,0) );
-            swprintf(wcsbuf, BUF_SIZE, L"%s", buf);
+            //
+            swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             fs_print(wcsbuf, 380, 250, rgb(255, 255, 255), 400); 
         }
         close(sockfd);
