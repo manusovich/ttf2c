@@ -246,11 +246,11 @@ int main(int argc, char* argv[])
                         fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
-                    if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(0, 100, 480, 145);
+                    // if (buf2[0] == '5' && buf2[1] == '0') {
+                    //     clear_area(0, 100, 480, 145);
 
-                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
-                    }
+                    //     fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
+                    // }
 
                 } else {
                     buf2[k] = buf[i];
