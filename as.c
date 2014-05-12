@@ -27,13 +27,10 @@
 wchar_t wcsbuf[BUF_SIZE];
 
 char *fbp = 0;
+char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
-void put_pixel(int x, int y, int c) {
-    unsigned int pix_offset = x + y * finfo.line_length;
-    *((char*)(fbp + pix_offset)) = c;
-}
 
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
@@ -42,7 +39,7 @@ int rgb(int r, int g, int b) {
 // helper function to clear the screen - fill whole 
 // screen with given color
 void clear_screen(int c) {
-    memset(fbp, c, vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8);
+    memset(fbp2, c, vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8);
 }
 
 void put_pixel_RGB565(int x, int y, int r, int g, int b)
@@ -57,7 +54,7 @@ void put_pixel_RGB565(int x, int y, int r, int g, int b)
     unsigned short c = ((r / 8) << 11) + ((g / 4) << 5) + (b / 8);
     // or: c = ((r / 8) * 2048) + ((g / 4) * 32) + (b / 8);
     // write 'two bytes at once'
-    *((unsigned short*)(fbp + pix_offset)) = c;
+    *((unsigned short*)(fbp2 + pix_offset)) = c;
 }
 
 void put_pixel_RGB24(int x, int y, int r, int g, int b)
@@ -67,9 +64,9 @@ void put_pixel_RGB24(int x, int y, int r, int g, int b)
     unsigned int pix_offset = x * 3 + y * finfo.line_length;
 
     // now this is about the same as 'fbp[pix_offset] = value'
-    *((char*)(fbp + pix_offset)) = r;
-    *((char*)(fbp + pix_offset + 1)) = g;
-    *((char*)(fbp + pix_offset + 2)) = b;
+    *((char*)(fbp2 + pix_offset)) = r;
+    *((char*)(fbp2 + pix_offset + 1)) = g;
+    *((char*)(fbp2 + pix_offset + 2)) = b;
 }
 
 void pp(int x, int y, int intensity, int c) {
@@ -98,24 +95,6 @@ void clear_area(int x1, int y1, int x2, int y2) {
         for (y = y1; y < y2; y++) {
             pp(x, y, 0xff, rgb(0,0,0));
         }
-    }
-}
-
-void draw() {
-    int fps = 1;
-    int secs = 60;
-    
-    // loop for a while
-    int i;
-    for (i = 0; i < (fps * secs); i++) {
-        clear_screen(rgb(0,0,0));
-
-        fl_print(L"Nick", 10, 10, rgb(255, 255, 255), 400); 
-        fl_print(L"Batra", 10, 55, rgb(255, 255, 255), 400); 
-        fl_print(L"$23.55", 10, 110, rgb(0, 255, 0), 400); 
-
-        usleep(1000000 / fps);
-        // to be exact, would need to time the above and subtract...
     }
 }
 
@@ -166,6 +145,7 @@ int main(int argc, char* argv[])
                       MAP_SHARED,
                       fbfd,
                       0);
+    fbp2 = (char*) malloc(screensize);
     
     if ((int)fbp == -1) {
         wprintf(L"Failed to mmap.\n");
@@ -261,9 +241,16 @@ int main(int argc, char* argv[])
                     k++;
                 }
             }
+
+
+            // display
+            memcpy ( &fbp, &fbp2, screensize );
         }
         close(sockfd);
     }
+
+
+    free(fbp2);
     
     // cleanup
     munmap(fbp, screensize);
