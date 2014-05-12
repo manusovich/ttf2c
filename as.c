@@ -215,12 +215,13 @@ int main(int argc, char* argv[])
 
             char buf2[MAXDATASIZE];
             int i = 0, k = 0;
-            for (i = 0; i < numbytes; i++; k++) {
+            for (i = 0; i < numbytes; i++) {
                 if (buf[i] == '\n' && k > 0) {
                     wprintf(L"%s\n", buf2);
                     k == 0;
                 } else {
                     buf2[k] = buf[i];
+                    k++;
                 }
             }
 
