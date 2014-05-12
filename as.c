@@ -212,14 +212,14 @@ int main(int argc, char* argv[])
                 wprintf(L"recv");
                 exit(1);
             }
-            wprintf(L"< %s\n", buf);
-
+   
             // read section id
             //clear_screen(rgb(0,0,0));
             swprintf(wcsbuf, BUF_SIZE, L"%s", buf + 1);
             
             int code = buf[0];
-            // time
+            wprintf(L"< %d %s\n", code, wcsbuf);
+         // time
             if (code == 10) {
                 // fs_print(wcsbuf, 0, 0, rgb(255, 255, 255), 400); 
             }
