@@ -223,7 +223,7 @@ int main(int argc, char* argv[])
             int z = 0;
             for (z = 0; z < k; z++) {
                 int c = array[z][0];
-                wprintf(L"%d\n", code);
+                wprintf(L"%d\n", c);
             }
 
             // read section id
