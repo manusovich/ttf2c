@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
     fbp2 = (char*) malloc(screensize);
 
     clear_screen(rgb(0,0,0));
-    fs_print(L"Connecting to WIFI Network", 10, 10, rgb(255, 255, 255), 400); 
+    fs_print(L"Connecting...", 10, 10, rgb(255, 255, 255), 400); 
     memcpy ( fbp, fbp2, screensize );
 
     if ((int)fbp == -1) {
