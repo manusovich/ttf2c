@@ -21,7 +21,7 @@
 #include "fl.h"
 #include "fs.h"
 
-#define PORT "8088" // the port client will be connecting to 
+#define PORT "55000" // the port client will be connecting to 
 #define MAXDATASIZE 100 // max number of bytes we can get at once 
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
