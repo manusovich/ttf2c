@@ -98,6 +98,31 @@ void clear_area(int x1, int y1, int x2, int y2) {
     }
 }
 
+
+int recvtimeout(int s, char *buf, int len, int timeout)
+{
+    fd_set fds;
+    int n;
+    struct timeval tv;
+
+    // set up the file descriptor set
+    FD_ZERO(&fds);
+    FD_SET(s, &fds);
+
+    // set up the struct timeval for the timeout
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
+
+    // wait until timeout or data received
+    n = select(s+1, &fds, NULL, NULL, &tv);
+    if (n == 0) return -2; // timeout!
+    if (n == -1) return -1; // error
+
+    // data must be here, so do a normal recv()
+    return recv(s, buf, len, 0);
+}
+
+
 // application entry point
 int main(int argc, char* argv[])
 {
@@ -204,7 +229,8 @@ int main(int argc, char* argv[])
         clear_screen(rgb(0,0,0));
 
         while (1) {
-            if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+            // timeout for recv = 5 sec
+            if ((numbytes = n = recvtimeout(sockfd, buf, sizeof buf, 5)) == -1) {
                 wprintf(L"recv");
                 exit(1);
             }
