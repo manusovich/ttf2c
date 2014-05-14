@@ -21,7 +21,7 @@
 #include "fl.h"
 #include "fs.h"
 
-#define PORT "55000" // the port client will be connecting to 
+#define PORT "55000" // the port client will be connecting tyo 
 #define MAXDATASIZE 100 // max number of bytes we can get at once 
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
@@ -248,7 +248,7 @@ int main(int argc, char* argv[])
 
 
             // display
-            memcpy ( fbp, fbp2, screensize );
+//            memcpy ( fbp, fbp2, screensize );
         }
         close(sockfd);
     }
