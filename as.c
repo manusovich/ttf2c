@@ -215,6 +215,7 @@ int main(int argc, char* argv[])
                 if (buf[i] == '\n' && k > 0) {
                     buf2[k]='\0';
                     k = 0;
+                    wprintf(L"%s\n", buf2);
 
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
