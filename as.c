@@ -231,9 +231,10 @@ int main(int argc, char* argv[])
         while (1) {
             // timeout for recv = 5 sec
             if ((numbytes = recvtimeout(sockfd, buf, sizeof buf, 5)) < 0) {
-                wprintf(L"\n Socket reading error: %d", numbytes);
+                wprintf(L"\n Socket reading error: %d\n", numbytes);
                 exit(1);
             }
+            wprintf(L"numbytes: %d\n", numbytes);
 
             char buf2[MAXDATASIZE];
             int i = 0, k = 0;
