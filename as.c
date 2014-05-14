@@ -230,8 +230,8 @@ int main(int argc, char* argv[])
 
         while (1) {
             // timeout for recv = 5 sec
-            if ((numbytes = recvtimeout(sockfd, buf, sizeof buf, 5)) == -1) {
-                wprintf(L"recv");
+            if ((numbytes = recvtimeout(sockfd, buf, sizeof buf, 5)) < 0) {
+                wprintf(L"\n Socket reading error: %d", numbytes);
                 exit(1);
             }
 
