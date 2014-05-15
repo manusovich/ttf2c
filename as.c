@@ -250,10 +250,10 @@ void read_image(char *name) {
         return;
     }
     
-    buffer = (int *) malloc(150 + 1);
+    buffer = (byte *) malloc(150 + 1);
     while (1) {
         //Read file contents into buffer
-        int readed = fread(buffer, 300, 1, file);
+        int readed = fread(buffer, 2, 150, file);
         wprintf(L"r %d, ", readed);
         if (readed <= 0) {
             break;
