@@ -214,8 +214,8 @@ int main(int argc, char* argv[])
             }
 
             
-            flags = Fcntl(sockfd, F_GETFL, 0);
-            Fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+            flags = fcntl(sockfd, F_GETFL, 0);
+            fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 
             error = 0;
             if ((n = connect(sockfd, p->ai_addr, p->ai_addrlen)) < 0) {
@@ -238,7 +238,7 @@ int main(int argc, char* argv[])
         tval.tv_sec = nsec;
         tval.tv_usec = 0;
 
-        if ( (n = Select(sockfd+1, &rset, &wset, NULL,
+        if ( (n = select(sockfd+1, &rset, &wset, NULL,
                      nsec ? &tval : NULL)) == 0) {
             close(sockfd);      /* timeout */
             errno = ETIMEDOUT;
@@ -253,7 +253,7 @@ int main(int argc, char* argv[])
     wprintf(L"select error: sockfd not set");
            
         done:
-            Fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
+            fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
 
             if (error) {
                 close(sockfd);      /* just in case */
@@ -279,7 +279,7 @@ for ( ; ; ) {
                 wprintf(L"Read error");
         }
         recvline[n] = 0;    /* null terminate */
-        Fputs(recvline, stdout);
+        fputs(recvline, stdout);
     }
 /*
 
