@@ -297,18 +297,18 @@ int mz_loop() {
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(10, 60, 330, 55);
-                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                        clear_area(10, 60, 330, 105);
+                        fl_print(wcsbuf, 10, 60, rgb(255, 255, 255), 330); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
-                        clear_area(10, 105, 330, 100);
-                        fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+                        clear_area(10, 105, 330, 150);
+                        fl_print(wcsbuf, 10, 105, rgb(255, 255, 255), 330); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(10, 150, 330, 145);
-                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
+                        clear_area(10, 150, 330, 195);
+                        fl_print(wcsbuf, 10, 150, rgb(0, 255, 0), 330); 
                     }
 
                     if (buf2[0] == '1' && buf2[1] == '0') {
@@ -317,7 +317,7 @@ int mz_loop() {
                     }
                     
                     if (buf2[0] == '3' && buf2[1] == '0') {
-                        clear_area(330, 10, 480, 160);
+                        clear_area(330, 60, 480, 210);
                         int status;
                         system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
                         wait(&status); 
@@ -380,7 +380,8 @@ int main(int argc, char* argv[])
     
     draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
     
-    fs_print(L"Connecting...", 10, 10, rgb(255, 255, 255), 400); 
+    fs_print(L"Connecting...", 10, 10, rgb(255, 255, 255), 330); 
+    
     memcpy ( fbp, fbp2, screensize );
 
     if ((int)fbp == -1) {
