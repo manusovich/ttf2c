@@ -354,8 +354,8 @@ int main(int argc, char* argv[])
                 break;
             }
             server_reconnects++;
-            sprintf(buf2, L"%d", server_reconnects);
-            print_error(buf2)
+            sprintf(buf2, "%d", server_reconnects);
+            print_error(buf2);
         }
     }
 
