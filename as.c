@@ -253,9 +253,7 @@ void read_image(char *name) {
     y = 10;
     buffer = (char *) malloc(300 + 1);
     while (1) {
-        //Read file contents into buffer
         int readed = fread(buffer, 1, 300, file);
-        wprintf(L"Readed %d", readed);
         for (k = 0; k < readed; k+=2) {
             pp(330 + k/2, y, 0xFF, rgb(255, 0, 0));
             pp(330 + k/2, y, 0xFF, (buffer[k + 1] << 8) | (buffer[k]));
@@ -264,7 +262,6 @@ void read_image(char *name) {
         if (readed <= 0) {
             break;
         }
-
     }
     fclose(file);
     free(buffer);
@@ -301,17 +298,17 @@ int mz_loop() {
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(10, 10, 480, 55);
+                        clear_area(10, 10, 330, 55);
                         fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
-                        clear_area(10, 55, 480, 100);
+                        clear_area(10, 55, 330, 100);
                         fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(10, 100, 480, 145);
+                        clear_area(10, 100, 330, 145);
                         fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
                     }
 
@@ -321,8 +318,9 @@ int mz_loop() {
                     }
                     
                     if (buf2[0] == '3' && buf2[1] == '0') {
+                        clear_area(330, 10, 480, 160);
                         int status;
-                        system("curl http://192.168.0.3:8080/ci -o /home/pi/1");  
+                        system("curl -s http://192.168.0.3:8080/ci -o /home/pi/1");  
                         wait(&status); 
                         read_image("/home/pi/1");
                     }
