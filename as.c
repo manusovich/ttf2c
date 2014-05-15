@@ -250,7 +250,7 @@ void read_image(char *name) {
         return;
     }
     
-    buffer = (unsigned int *) malloc(150 + 2);
+    buffer = (unsigned int *) malloc(300 + 2);
     while (1) {
         //Read file contents into buffer
         int readed = fread(buffer, 2, 150, file);
