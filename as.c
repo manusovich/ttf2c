@@ -37,7 +37,7 @@ char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
-int debug = 1;
+int debug = 0;
 
 int sockfd, numbytes;  
 char buf[MAXDATASIZE];
@@ -287,14 +287,12 @@ int mz_loop() {
 
                         system("curl http://192.168.0.3 -o /home/pi/1");  
                         wait(&status); 
+                
                     }
 
 
 
 
-
-
-        
 
 
 
