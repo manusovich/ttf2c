@@ -240,7 +240,7 @@ int mz_setup_server_connection() {
 
 void read_image(char *name) {
     FILE *file;
-    byte *buffer;
+    char *buffer;
     int readed, k, y;
 
     //Open file
@@ -251,14 +251,14 @@ void read_image(char *name) {
     }
     
     y = 10;
-    buffer = (byte *) malloc(300 + 2);
+    buffer = (char *) malloc(300 + 1);
     while (1) {
         //Read file contents into buffer
         int readed = fread(buffer, 1, 300, file);
         wprintf(L"Readed %d", readed);
         for (k = 0; k < readed; k+=2) {
-            //pp(330 + k, y, 0xFF, rgb(255, 0, 0));
-            pp(330 + k, y, 0xFF, buffer[k]);
+            pp(330 + k/2, y, 0xFF, rgb(255, 0, 0));
+            pp(330 + k/2, y, 0xFF, buffer[k]);
         }
         y++;
         if (readed <= 0) {
