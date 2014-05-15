@@ -96,11 +96,12 @@ void pp(int x, int y, int intensity, int c) {
     int r = ((c >> 16) & 0x0FF) / (double) 0xff * intensity;
     int g = ((c >> 8) & 0x0FF) / (double) 0xff * intensity;
     int b = (c & 0x0FF) / (double) 0xff * intensity;
-
-    if (vinfo.bits_per_pixel == 16) {
-        put_pixel_RGB565(x, y, r, g, b);
-    } else {
-        put_pixel_RGB24(x, y, r, g, b);
+    if (intensity > 100) {
+        if (vinfo.bits_per_pixel == 16) {
+            put_pixel_RGB565(x, y, r, g, b);
+        } else {
+            put_pixel_RGB24(x, y, r, g, b);
+        }
     }
 }
 
