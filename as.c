@@ -284,12 +284,6 @@ int mz_loop() {
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(370, 240, 480, 272);
                         fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
-
-
-                        int status;
-                        system("curl http://192.168.0.3 -o /home/pi/1");  
-                        wait(&status); 
-                
                     }
                     
                     if (buf2[0] == '3' && buf2[1] == '0') {
