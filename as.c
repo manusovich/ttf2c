@@ -321,7 +321,7 @@ int mz_loop() {
                         int status;
                         system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
                         wait(&status); 
-                        draw_image("/home/pi/1");
+                        draw_image("/home/pi/1", 330, 60);
                     }
                 } else {
                     buf2[k] = buf[i];
