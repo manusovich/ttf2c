@@ -200,8 +200,10 @@ int main(int argc, char* argv[])
         wprintf(L"Open socket");
 
         fd_set rset, wset;
+        socklen_t       len;
         int nsec = 2;
         int  flags, n, error;
+            struct timeval  tval;
         
         // loop through all the results and connect to the first we can
         for (p = servinfo; p != NULL; p = p->ai_next) {
