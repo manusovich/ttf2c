@@ -212,7 +212,6 @@ int main(int argc, char* argv[])
                 wprintf(L"Can't open socket\n");
                 continue;
             }
-
             
             flags = fcntl(sockfd, F_GETFL, 0);
             fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
@@ -269,53 +268,59 @@ int main(int argc, char* argv[])
 
         clear_screen(rgb(0,0,0));
 
+        int debug = 0;
+
         while (1) {
             // timeout for recv = 5 sec
-            if ((numbytes = recvtimeout(sockfd, buf, sizeof buf, 5)) < 0) {
+            if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) < 0) {
                 wprintf(L"\n Socket reading error: %d\n", numbytes);
                 exit(1);
             }
-            wprintf(L"numbytes: %d\n", numbytes);
+            
+            if (debug == 1) {
+                // Display package information        
+                buf[numbytes] = '\0';
+                wprintf(L"IN(%db): %s\n", numbytes, buf);
+            } else if (debug == 0) {
+                // Draw graphics
+                char buf2[MAXDATASIZE];
+                int i = 0, k = 0;
+                for (i = 0; i < numbytes; i++) {
+                    if (buf[i] == '\n' && k > 0) {
+                        buf2[k]='\0';
+                        k = 0;
+                        
+                        swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
-            char buf2[MAXDATASIZE];
-            int i = 0, k = 0;
-            for (i = 0; i < numbytes; i++) {
-                if (buf[i] == '\n' && k > 0) {
-                    buf2[k]='\0';
-                    k = 0;
-                    wprintf(L"%s\n", buf2);
+                        if (buf2[0] == '2' && buf2[1] == '0') {
+                            clear_area(10, 10, 480, 55);
+                            fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                        }
 
-                    swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
+                        if (buf2[0] == '2' && buf2[1] == '1') {
+                            clear_area(10, 55, 480, 100);
+                            fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+                        }
 
-                    if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(10, 10, 480, 55);
-                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                        if (buf2[0] == '5' && buf2[1] == '0') {
+                            clear_area(10, 100, 480, 145);
+                            fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
+                        }
+
+                        if (buf2[0] == '1' && buf2[1] == '0') {
+                            clear_area(370, 240, 480, 272);
+                            fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
+                        }
+
+                    } else {
+                        buf2[k] = buf[i];
+                        k++;
                     }
-
-                    if (buf2[0] == '2' && buf2[1] == '1') {
-                        clear_area(10, 55, 480, 100);
-                        fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
-                    }
-
-                    if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(10, 100, 480, 145);
-                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
-                    }
-
-                    if (buf2[0] == '1' && buf2[1] == '0') {
-                        clear_area(370, 240, 480, 272);
-                        fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
-                    }
-
-                } else {
-                    buf2[k] = buf[i];
-                    k++;
-                }
+               }
+                // display
+                memcpy ( fbp, fbp2, screensize );
             }
 
-
-            // display
-//            memcpy ( fbp, fbp2, screensize );
         }
         
         close(sockfd);
