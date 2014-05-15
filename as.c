@@ -37,7 +37,7 @@ char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
-int debug = 0;
+int debug = 1;
 
 int sockfd, numbytes;  
 char buf[MAXDATASIZE];
@@ -284,6 +284,41 @@ int mz_loop() {
                         clear_area(370, 240, 480, 272);
                         fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
                     }
+
+
+
+
+
+
+  FILE *fp;
+  int status;
+  int path[1000000];
+
+  /* Open the command for reading. */
+  fp = popen("/bin/curl http://192.168.0.3/ci", "r");
+  if (fp == NULL) {
+    wprintf(L"Failed to run command\n" );
+    exit;
+  }
+
+  /* Read the output a line at a time - output it. */
+  while (fgets(path, sizeof(path)-1, fp) != NULL) {
+    wprintf(L"%s", path);
+  }
+
+  /* close */
+  pclose(fp);
+
+  return 0;
+
+
+
+
+
+
+
+
+
 
                 } else {
                     buf2[k] = buf[i];
