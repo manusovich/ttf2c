@@ -425,6 +425,7 @@ int main(int argc, char* argv[])
 
             wprintf(L"------------- Z\n");
 
+            sleep(2);
         }
     }
 
