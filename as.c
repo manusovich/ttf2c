@@ -28,6 +28,10 @@
 #define BUF_SIZE 100
 wchar_t wcsbuf[BUF_SIZE];
 
+int fbfd = 0;
+struct fb_var_screeninfo orig_vinfo;
+long int screensize = 0;
+
 char *fbp = 0;
 char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
@@ -298,12 +302,6 @@ int mz_loop() {
 // application entry point
 int main(int argc, char* argv[])
 {
-    
-    int fbfd = 0;
-    struct fb_var_screeninfo orig_vinfo;
-    long int screensize = 0;
-    
-    
     // Open the file for reading and writing
     fbfd = open("/dev/fb0", O_RDWR);
     if (!fbfd) {
