@@ -126,8 +126,6 @@ int recvtimeout(int s, char *buf, int len, int timeout)
 }
 
 void print_error(wchar_t *text) {
-    wprintf(text);
-
     if (debug == 0) {
         clear_area(10, 160, 480, 180);
         fs_print(L"Error", 10, 160, rgb(255, 0, 0), 400);       
@@ -287,6 +285,7 @@ int main(int argc, char* argv[])
                 } else if (numbytes == -1) {
                     print_error(L"Socket reading error");  
                 }
+                memcpy ( fbp, fbp2, screensize );
                 exit(1);
             }
             
