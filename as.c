@@ -125,12 +125,12 @@ int recvtimeout(int s, char *buf, int len, int timeout)
     return recv(s, buf, len, 0);
 }
 
-int printError(char *text) {
+int printError(wchar_t *str) {
     if (debug == 0) {
         clear_area(10, 160, 480, 180);
-        fs_print(text, 10, 55, rgb(255, 0, 0), 400);       
+        fs_print(str, 10, 55, rgb(255, 0, 0), 400);       
     } else if (debug == 1) {
-        wprintf(L"Error: %s\n", text);
+        wprintf(L"Error: %s\n", str);
     }
     return 0;
 }
@@ -282,9 +282,9 @@ int main(int argc, char* argv[])
             // timeout for recv = 5 sec
             if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) < 0) {
                 if (numbytes == -2) {
-                    printError("Socket read timeout");
+                    printError(L"Socket read timeout");
                 } else if (numbytes == -1) {
-                    printError("Socket reading error");  
+                    printError(L"Socket reading error");  
                 }
                 exit(1);
             }
