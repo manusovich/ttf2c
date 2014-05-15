@@ -354,7 +354,7 @@ int main(int argc, char* argv[])
                 break;
             }
             server_reconnects++;
-            sprintf(buf2, MAXDATASIZE, L"%d", server_reconnects);
+            sprintf(buf2, L"%d", server_reconnects);
             print_error(buf2)
         }
     }
