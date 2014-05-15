@@ -18,6 +18,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <sys/select.h>
 #include "fl.h"
 #include "fs.h"
 
@@ -198,27 +199,63 @@ int main(int argc, char* argv[])
 
         wprintf(L"Open socket");
 
+        fd_set rset, wset;
+        int nsec = 2;
+        
         // loop through all the results and connect to the first we can
-        for(p = servinfo; p != NULL; p = p->ai_next) {
-            if ((sockfd = socket(p->ai_family, p->ai_socktype,
-                    p->ai_protocol)) == -1) {
+        for (p = servinfo; p != NULL; p = p->ai_next) {
+            if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
                 wprintf(L"client: socket");
                 continue;
             }
 
-            if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
-                close(sockfd);
-                wprintf(L"client: connect");
-                continue;
+            int  flags, n, error;
+            flags = Fcntl(sockfd, F_GETFL, 0);
+            Fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+
+            error = 0;
+            if ((n = connect(sockfd, p->ai_addr, p->ai_addrlen)) < 0) {
+                if (errno != EINPROGRESS) {
+                    close(sockfd);
+                    wprintf(L"Connection issue: %d\n", errno);
+                    continue;
+                }
             }
 
             break;
         }
 
-        if (p == NULL) {
-            wprintf(L"client: failed to connect\n");
-            return 2;
+        if (n == 0)
+            goto done;  /* connect completed immediately */
+    
+        FD_ZERO(&rset);
+        FD_SET(sockfd, &rset);
+        wset = rset;
+        tval.tv_sec = nsec;
+        tval.tv_usec = 0;
+
+        if ( (n = Select(sockfd+1, &rset, &wset, NULL,
+                     nsec ? &tval : NULL)) == 0) {
+            close(sockfd);      /* timeout */
+            errno = ETIMEDOUT;
+            return(-1);
         }
+
+        if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
+            len = sizeof(error);
+            if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+                return(-1);         /* Solaris pending error */
+        } else
+            err_quit("select error: sockfd not set");
+
+        done:
+            Fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
+
+            if (error) {
+                close(sockfd);      /* just in case */
+                errno = error;
+                return(-1);
+             }
 
         inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
                 s, sizeof s);
@@ -227,6 +264,20 @@ int main(int argc, char* argv[])
         freeaddrinfo(servinfo); // all done with this structure
 
         clear_screen(rgb(0,0,0));
+
+int MAXLINE = 300;
+char                recvline[MAXLINE + 1];
+for ( ; ; ) {
+        if ( (n = read(sockfd, recvline, MAXLINE)) <= 0) {
+            if (n == 0)
+                break;      /* server closed connection */
+            else
+                err_sys("read error");
+        }
+        recvline[n] = 0;    /* null terminate */
+        Fputs(recvline, stdout);
+    }
+/*
 
         while (1) {
             // timeout for recv = 5 sec
@@ -280,7 +331,7 @@ int main(int argc, char* argv[])
         }
         close(sockfd);
     }
-
+*/
 
     free(fbp2);
     
@@ -292,5 +343,6 @@ int main(int argc, char* argv[])
     close(fbfd);
     
     return 0;
-    
 }
+
+
