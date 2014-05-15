@@ -354,8 +354,8 @@ int main(int argc, char* argv[])
                 break;
             }
             server_reconnects++;
-            swprintf(wcsbuf, BUF_SIZE, L"%d", server_reconnects);
-            print_error(wcsbuf)
+            sprintf(buf2, MAXDATASIZE, L"%d", server_reconnects);
+            print_error(buf2)
         }
     }
 
