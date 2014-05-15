@@ -254,7 +254,7 @@ void read_image(char *name) {
     buffer = (unsigned int *) malloc(300 + 2);
     while (1) {
         //Read file contents into buffer
-        int readed = fread(buffer, 2, 150, file);
+        int readed = fread(buffer, 300, 1, file);
         for (k = 0; k < readed; k++) {
             pp(300 + k, y, 0xFF, buffer[k]);
         }
