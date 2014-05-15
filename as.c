@@ -19,6 +19,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/select.h>
+#include <fcntl.h>
 #include "fl.h"
 #include "fs.h"
 
@@ -203,7 +204,7 @@ int main(int argc, char* argv[])
         socklen_t       len;
         int nsec = 2;
         int  flags, n, error;
-            struct timeval  tval;
+        struct timeval  tval;
         
         // loop through all the results and connect to the first we can
         for (p = servinfo; p != NULL; p = p->ai_next) {
@@ -249,8 +250,8 @@ int main(int argc, char* argv[])
             if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
                 return(-1);         /* Solaris pending error */
         } else
-            err_quit("select error: sockfd not set");
-
+    wprintf(L"select error: sockfd not set");
+           
         done:
             Fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
 
@@ -275,7 +276,7 @@ for ( ; ; ) {
             if (n == 0)
                 break;      /* server closed connection */
             else
-                err_sys("read error");
+                wprintf(L"Read error");
         }
         recvline[n] = 0;    /* null terminate */
         Fputs(recvline, stdout);
