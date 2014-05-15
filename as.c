@@ -257,7 +257,8 @@ void read_image(char *name) {
         int readed = fread(buffer, 2, 150, file);
         wprintf(L"Readed %d", readed);
         for (k = 0; k < readed; k++) {
-            pp(330 + k, y, 0xFF, buffer[k]);
+            pp(330 + k, y, 0xFF, rgb(255, 0, 0));
+            //pp(330 + k, y, 0xFF, buffer[k]);
         }
         y++;
         if (readed <= 0) {
