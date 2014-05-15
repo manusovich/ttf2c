@@ -174,14 +174,17 @@ int mz_setup_server_connection() {
     
     // loop through all the results and connect to the first we can
     for (p = servinfo; p != NULL; p = p->ai_next) {
+        wprintf(L"------------- 1\n");
         if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
             wprintf(L"Can't open socket\n");
             continue;
         }
+        wprintf(L"------------- 2\n");
         
         flags = fcntl(sockfd, F_GETFL, 0);
         fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 
+        wprintf(L"------------- 3\n");
         error = 0;
         if ((n = connect(sockfd, p->ai_addr, p->ai_addrlen)) < 0) {
             if (errno != EINPROGRESS) {
@@ -191,11 +194,15 @@ int mz_setup_server_connection() {
             }
         }
 
+        wprintf(L"------------- 4\n");
+
         break;
     }
 
     if (n == 0)
         goto done;  /* connect completed immediately */
+
+    wprintf(L"------------- 5\n");
 
     FD_ZERO(&rset);
     FD_SET(sockfd, &rset);
@@ -203,12 +210,17 @@ int mz_setup_server_connection() {
     tval.tv_sec = nsec;
     tval.tv_usec = 0;
 
+    wprintf(L"------------- 6\n");
+
     if ( (n = select(sockfd+1, &rset, &wset, NULL,
                  nsec ? &tval : NULL)) == 0) {
         close(sockfd);      /* timeout */
         errno = ETIMEDOUT;
         return(-1);
     }
+
+    wprintf(L"------------- 7\n");
+
 
     if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
         len = sizeof(error);
@@ -219,6 +231,8 @@ int mz_setup_server_connection() {
         wprintf(L"select error: sockfd not set");
     }
 
+    wprintf(L"------------- 8\n");
+
     done:
         fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
 
@@ -228,9 +242,14 @@ int mz_setup_server_connection() {
             return (-1);
          }
 
+    wprintf(L"------------- 9\n");
+
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
             s, sizeof s);
     wprintf(L"client: connecting to %s\n", s);
+
+    wprintf(L"------------- 10\n");
+
 
     freeaddrinfo(servinfo); // all done with this structure
 
@@ -241,6 +260,8 @@ int mz_setup_server_connection() {
     int res = mz_loop();
 
     close(sockfd);
+
+    wprintf(L"------------- 11\n");
 
     return res;
 }
