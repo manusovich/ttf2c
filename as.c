@@ -291,7 +291,13 @@ int mz_loop() {
                         wait(&status); 
                 
                     }
-
+                    
+                    if (buf2[0] == '3' && buf2[1] == '0') {
+                        int status;
+                        system("curl http://192.168.0.3:8080/ci -o /home/pi/1");  
+                        wait(&status); 
+                
+                    }
 
 
 
