@@ -378,7 +378,7 @@ int main(int argc, char* argv[])
 
     clear_screen(rgb(0,0,0));
     
-    draw_image("/home/pi/ttf2c/mozido-logo", 330, 10)
+    draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
     
     fs_print(L"Connecting...", 10, 10, rgb(255, 255, 255), 400); 
     memcpy ( fbp, fbp2, screensize );
