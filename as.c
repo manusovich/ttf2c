@@ -38,7 +38,7 @@ char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
-int debug = 0;
+int debug = 1;
 
 int sockfd, numbytes;  
 char buf[MAXDATASIZE];
@@ -281,13 +281,6 @@ int mz_loop() {
 
         // timeout for recv = 5 sec
         if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) <= 0) {
-            if (numbytes == -2) {
-                print_error("service unavailable");
-            } else if (numbytes == -1) {
-                print_error("service unavailable");  
-            }
-            memcpy ( fbp, fbp2, screensize );
-            
             return numbytes;
         }
         
@@ -392,9 +385,8 @@ int main(int argc, char* argv[])
         while (1) {
             clear_screen(rgb(0,0,0));
             draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
-            fs_print(L"Connecting...", 20, 30, rgb(255, 255, 255), 330); 
+            fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330); 
             memcpy ( fbp, fbp2, screensize );
-
 
             errno = 0;
             int res = mz_setup_server_connection();
