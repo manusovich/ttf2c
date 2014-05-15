@@ -159,7 +159,7 @@ int mz_setup_server_connection() {
     hints.ai_socktype = SOCK_STREAM;
 
     wprintf(L"Resolve address ...\n");
-    if ((rv = getaddrinfo("192.168.0.3", PORT, &hints, &servinfo)) != 0) {
+    if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
         wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
@@ -320,7 +320,7 @@ int mz_loop() {
                     if (buf2[0] == '3' && buf2[1] == '0') {
                         clear_area(330, 10, 480, 160);
                         int status;
-                        system("curl -s http://192.168.0.3:8080/ci -o /home/pi/1");  
+                        system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
                         wait(&status); 
                         read_image("/home/pi/1");
                     }
