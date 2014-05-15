@@ -148,7 +148,7 @@ void print_error(char *text) {
         int x1, y1;
         for (x1 = 0; x1 < 320; x1++) {
             for (y1 = 0; y1 < 50; y1 ++) {
-                pp(x, y, 0xff, rgb(0xff, 0, 0));
+                pp(x1, y1, 0xff, rgb(0xff, 0, 0));
             }
         }
         swprintf(wcsbuf, BUF_SIZE, L"%s", text);
