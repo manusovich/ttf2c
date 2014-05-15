@@ -126,7 +126,7 @@ int recvtimeout(int s, char *buf, int len, int timeout)
 }
 
 void print_error(wchar_t *text) {
-    wprintf(L"Error: %s\n", text);
+    wprintf(text);
 
     if (debug == 0) {
         clear_area(10, 160, 480, 180);
