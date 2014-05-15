@@ -332,9 +332,9 @@ for ( ; ; ) {
             // display
 //            memcpy ( fbp, fbp2, screensize );
         }
+        */
         close(sockfd);
     }
-*/
 
     free(fbp2);
     
