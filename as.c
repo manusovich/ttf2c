@@ -145,8 +145,9 @@ int recvtimeout(int s, char *buf, int len, int timeout)
 
 void print_error(char *text) {
     if (debug == 0) {
-        for (int x1 = 0; x1 < 320; x1++) {
-            for (int y1 = 0; y1 < 50; y1 ++) {
+        int x1, y1;
+        for (x1 = 0; x1 < 320; x1++) {
+            for (y1 = 0; y1 < 50; y1 ++) {
                 pp(x, y, 0xff, rgb(0xff, 0, 0));
             }
         }
