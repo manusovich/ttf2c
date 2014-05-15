@@ -35,6 +35,13 @@ struct fb_fix_screeninfo finfo;
 
 int debug = 0;
 
+int sockfd, numbytes;  
+char buf[MAXDATASIZE];
+struct addrinfo hints, *servinfo, *p;
+int rv;
+char s[INET6_ADDRSTRLEN];
+char buf2[MAXDATASIZE];        
+int server_reconnects = 0;
 
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
@@ -135,6 +142,159 @@ void print_error(char *text) {
     }
 }
 
+int mz_setup_server_connection() {
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+
+    wprintf(L"Resolve address ...\n");
+    if ((rv = getaddrinfo("192.168.0.3", PORT, &hints, &servinfo)) != 0) {
+        wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
+        return 1;
+    }
+
+    wprintf(L"Open socket\n");
+
+    fd_set rset, wset;
+    socklen_t       len;
+    int nsec = 2;
+    int  flags, n, error;
+    struct timeval  tval;
+    
+    // loop through all the results and connect to the first we can
+    for (p = servinfo; p != NULL; p = p->ai_next) {
+        if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
+            wprintf(L"Can't open socket\n");
+            continue;
+        }
+        
+        flags = fcntl(sockfd, F_GETFL, 0);
+        fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+
+        error = 0;
+        if ((n = connect(sockfd, p->ai_addr, p->ai_addrlen)) < 0) {
+            if (errno != EINPROGRESS) {
+                close(sockfd);
+                wprintf(L"Connection issue: %d\n", errno);
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (n == 0)
+        goto done;  /* connect completed immediately */
+
+    FD_ZERO(&rset);
+    FD_SET(sockfd, &rset);
+    wset = rset;
+    tval.tv_sec = nsec;
+    tval.tv_usec = 0;
+
+    if ( (n = select(sockfd+1, &rset, &wset, NULL,
+                 nsec ? &tval : NULL)) == 0) {
+        close(sockfd);      /* timeout */
+        errno = ETIMEDOUT;
+        return(-1);
+    }
+
+    if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
+        len = sizeof(error);
+        if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0) {
+            return (-1);         /* Solaris pending error */
+        }
+    } else {
+        wprintf(L"select error: sockfd not set");
+    }
+
+    done:
+        fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
+
+        if (error) {
+            close(sockfd);      /* just in case */
+            errno = error;
+            return (-1);
+         }
+
+    inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
+            s, sizeof s);
+    wprintf(L"client: connecting to %s\n", s);
+
+    freeaddrinfo(servinfo); // all done with this structure
+
+    clear_screen(rgb(0,0,0));
+
+    int res = mz_loop();
+
+    close(sockfd);
+
+    return res;
+}
+
+int mz_loop() {
+    while (1) {
+        // timeout for recv = 5 sec
+        if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) <= 0) {
+            if (numbytes == -2) {
+                print_error("Socket read timeout");
+            } else if (numbytes == -1) {
+                print_error("Socket reading error");  
+            }
+            memcpy ( fbp, fbp2, screensize );
+            
+            return numbytes;
+        }
+        
+        if (debug == 1) {
+            // Display package information        
+            buf[numbytes] = '\0';
+            wprintf(L"IN(%db): %s\n", numbytes, buf);
+        } else if (debug == 0) {
+            // Draw graphics
+           
+            int i = 0, k = 0;
+            for (i = 0; i < numbytes; i++) {
+                if (buf[i] == '\n' && k > 0) {
+                    buf2[k]='\0';
+                    k = 0;
+                    
+                    swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
+
+                    if (buf2[0] == '2' && buf2[1] == '0') {
+                        clear_area(10, 10, 480, 55);
+                        fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
+                    }
+
+                    if (buf2[0] == '2' && buf2[1] == '1') {
+                        clear_area(10, 55, 480, 100);
+                        fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
+                    }
+
+                    if (buf2[0] == '5' && buf2[1] == '0') {
+                        clear_area(10, 100, 480, 145);
+                        fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
+                    }
+
+                    if (buf2[0] == '1' && buf2[1] == '0') {
+                        clear_area(370, 240, 480, 272);
+                        fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
+                    }
+
+                } else {
+                    buf2[k] = buf[i];
+                    k++;
+                }
+           }
+            // display
+            memcpy ( fbp, fbp2, screensize );
+        }
+
+    }
+}
+
+
+
 // application entry point
 int main(int argc, char* argv[])
 {
@@ -176,12 +336,8 @@ int main(int argc, char* argv[])
     // map fb to user mem
     screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
 
-    fbp = (char*)mmap(0,
-                      screensize,
-                      PROT_READ | PROT_WRITE,
-                      MAP_SHARED,
-                      fbfd,
-                      0);
+    fbp = (char*) mmap(0, screensize, PROT_READ | PROT_WRITE,
+            MAP_SHARED, fbfd, 0);
     fbp2 = (char*) malloc(screensize);
 
     clear_screen(rgb(0,0,0));
@@ -192,151 +348,15 @@ int main(int argc, char* argv[])
         wprintf(L"Failed to mmap.\n");
     }
     else {
-        int sockfd, numbytes;  
-        char buf[MAXDATASIZE];
-        struct addrinfo hints, *servinfo, *p;
-        int rv;
-        char s[INET6_ADDRSTRLEN];
-
-        memset(&hints, 0, sizeof hints);
-        hints.ai_family = AF_UNSPEC;
-        hints.ai_socktype = SOCK_STREAM;
-
-        wprintf(L"Resolve address ...\n");
-        if ((rv = getaddrinfo("192.168.0.3", PORT, &hints, &servinfo)) != 0) {
-            wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
-            return 1;
-        }
-
-        wprintf(L"Open socket\n");
-
-        fd_set rset, wset;
-        socklen_t       len;
-        int nsec = 2;
-        int  flags, n, error;
-        struct timeval  tval;
-        
-        // loop through all the results and connect to the first we can
-        for (p = servinfo; p != NULL; p = p->ai_next) {
-            if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
-                wprintf(L"Can't open socket\n");
-                continue;
-            }
-            
-            flags = fcntl(sockfd, F_GETFL, 0);
-            fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
-
-            error = 0;
-            if ((n = connect(sockfd, p->ai_addr, p->ai_addrlen)) < 0) {
-                if (errno != EINPROGRESS) {
-                    close(sockfd);
-                    wprintf(L"Connection issue: %d\n", errno);
-                    continue;
-                }
-            }
-
-            break;
-        }
-
-        if (n == 0)
-            goto done;  /* connect completed immediately */
-    
-        FD_ZERO(&rset);
-        FD_SET(sockfd, &rset);
-        wset = rset;
-        tval.tv_sec = nsec;
-        tval.tv_usec = 0;
-
-        if ( (n = select(sockfd+1, &rset, &wset, NULL,
-                     nsec ? &tval : NULL)) == 0) {
-            close(sockfd);      /* timeout */
-            errno = ETIMEDOUT;
-            return(-1);
-        }
-
-        if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
-            len = sizeof(error);
-            if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-                return(-1);         /* Solaris pending error */
-        } else
-        wprintf(L"select error: sockfd not set");
-           
-        done:
-            fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
-
-            if (error) {
-                close(sockfd);      /* just in case */
-                errno = error;
-                return(-1);
-             }
-
-        inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
-                s, sizeof s);
-        wprintf(L"client: connecting to %s\n", s);
-
-        freeaddrinfo(servinfo); // all done with this structure
-
-        clear_screen(rgb(0,0,0));
-
         while (1) {
-            // timeout for recv = 5 sec
-            if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) < 0) {
-                if (numbytes == -2) {
-                    print_error("Socket read timeout");
-                } else if (numbytes == -1) {
-                    print_error("Socket reading error");  
-                }
-                memcpy ( fbp, fbp2, screensize );
-                exit(1);
+            int res = mz_setup_server_connection();
+            if (int > 0) {
+                break;
             }
-            
-            if (debug == 1) {
-                // Display package information        
-                buf[numbytes] = '\0';
-                wprintf(L"IN(%db): %s\n", numbytes, buf);
-            } else if (debug == 0) {
-                // Draw graphics
-                char buf2[MAXDATASIZE];
-                int i = 0, k = 0;
-                for (i = 0; i < numbytes; i++) {
-                    if (buf[i] == '\n' && k > 0) {
-                        buf2[k]='\0';
-                        k = 0;
-                        
-                        swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
-
-                        if (buf2[0] == '2' && buf2[1] == '0') {
-                            clear_area(10, 10, 480, 55);
-                            fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
-                        }
-
-                        if (buf2[0] == '2' && buf2[1] == '1') {
-                            clear_area(10, 55, 480, 100);
-                            fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
-                        }
-
-                        if (buf2[0] == '5' && buf2[1] == '0') {
-                            clear_area(10, 100, 480, 145);
-                            fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
-                        }
-
-                        if (buf2[0] == '1' && buf2[1] == '0') {
-                            clear_area(370, 240, 480, 272);
-                            fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
-                        }
-
-                    } else {
-                        buf2[k] = buf[i];
-                        k++;
-                    }
-               }
-                // display
-                memcpy ( fbp, fbp2, screensize );
-            }
-
+            server_reconnects++;
+            swprintf(wcsbuf, BUF_SIZE, L"%d", server_reconnects);
+            print_error(wcsbuf)
         }
-        
-        close(sockfd);
     }
 
     free(fbp2);
