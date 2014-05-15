@@ -201,6 +201,7 @@ int main(int argc, char* argv[])
 
         fd_set rset, wset;
         int nsec = 2;
+        int  flags, n, error;
         
         // loop through all the results and connect to the first we can
         for (p = servinfo; p != NULL; p = p->ai_next) {
@@ -209,7 +210,7 @@ int main(int argc, char* argv[])
                 continue;
             }
 
-            int  flags, n, error;
+            
             flags = Fcntl(sockfd, F_GETFL, 0);
             Fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 
