@@ -47,6 +47,12 @@ char s[INET6_ADDRSTRLEN];
 char buf2[MAXDATASIZE];        
 int server_reconnects = 0;
 
+fd_set rset, wset;
+socklen_t       len;
+int nsec = 2;
+int  flags, n, error;
+struct timeval  tval;
+
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
 }
@@ -158,12 +164,6 @@ int mz_setup_server_connection() {
     }
 
     wprintf(L"Open socket\n");
-
-    fd_set rset, wset;
-    socklen_t       len;
-    int nsec = 2;
-    int  flags, n, error;
-    struct timeval  tval;
     
     // loop through all the results and connect to the first we can
     for (p = servinfo; p != NULL; p = p->ai_next) {
