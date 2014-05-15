@@ -132,6 +132,7 @@ int printError(char *text) {
     } else if (debug == 1) {
         wprintf(L"Error: %s\n", text);
     }
+    return 0;
 }
 
 // application entry point
