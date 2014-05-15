@@ -269,20 +269,20 @@ int main(int argc, char* argv[])
 
         clear_screen(rgb(0,0,0));
 
-int MAXLINE = 300;
-char                recvline[MAXLINE + 1];
-for ( ; ; ) {
-        wprintf(L"1");
-        if ( (n = read(sockfd, recvline, MAXLINE)) <= 0) {
-            if (n == 0)
-                break;      /* server closed connection */
-            else
-                wprintf(L"Read error");
-        }
-        recvline[n] = 0;    /* null terminate */
-        fputs(recvline, stdout);
-    }
-/*
+// int MAXLINE = 300;
+// char                recvline[MAXLINE + 1];
+// for ( ; ; ) {
+//         wprintf(L"1");
+//         if ( (n = read(sockfd, recvline, MAXLINE)) <= 0) {
+//             if (n == 0)
+//                 break;      /* server closed connection */
+//             else
+//                 wprintf(L"Read error");
+//         }
+//         recvline[n] = 0;    /* null terminate */
+//         fputs(recvline, stdout);
+//     }
+
 
         while (1) {
             // timeout for recv = 5 sec
@@ -334,7 +334,7 @@ for ( ; ; ) {
             // display
 //            memcpy ( fbp, fbp2, screensize );
         }
-        */
+        
         close(sockfd);
     }
 
