@@ -203,7 +203,7 @@ int main(int argc, char* argv[])
         hints.ai_socktype = SOCK_STREAM;
 
         wprintf(L"Resolve address ...\n");
-        if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
+        if ((rv = getaddrinfo("192.168.0.3", PORT, &hints, &servinfo)) != 0) {
             wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
             return 1;
         }
