@@ -272,6 +272,7 @@ int main(int argc, char* argv[])
 int MAXLINE = 300;
 char                recvline[MAXLINE + 1];
 for ( ; ; ) {
+        wprintf(L"1");
         if ( (n = read(sockfd, recvline, MAXLINE)) <= 0) {
             if (n == 0)
                 break;      /* server closed connection */
