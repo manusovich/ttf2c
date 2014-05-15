@@ -128,7 +128,7 @@ int recvtimeout(int s, char *buf, int len, int timeout)
 int printError(wchar_t *str) {
     if (debug == 0) {
         clear_area(10, 160, 480, 180);
-        fs_print(str, 10, 55, rgb(255, 0, 0), 400);       
+        fs_print(L"Error", 10, 55, rgb(255, 0, 0), 400);       
     } else if (debug == 1) {
         wprintf(L"Error: %s\n", str);
     }
