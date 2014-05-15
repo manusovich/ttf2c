@@ -19,6 +19,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/select.h>
+#include <sys/wait.h>
 #include <fcntl.h>
 #include "fl.h"
 #include "fs.h"
@@ -285,6 +286,7 @@ int mz_loop() {
                         fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
 
 
+                        int status;
                         system("curl http://192.168.0.3 -o /home/pi/1");  
                         wait(&status); 
                 
