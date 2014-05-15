@@ -241,7 +241,7 @@ int mz_setup_server_connection() {
 void read_image(char *name) {
     FILE *file;
     unsigned int *buffer;
-    int readed;
+    int readed, k, y;
 
     //Open file
     file = fopen(name, "rb");
@@ -250,11 +250,15 @@ void read_image(char *name) {
         return;
     }
     
+    y = 10;
     buffer = (unsigned int *) malloc(300 + 2);
     while (1) {
         //Read file contents into buffer
         int readed = fread(buffer, 2, 150, file);
-        wprintf(L"r %d, ", readed);
+        for (k = 0; k < readed; k++) {
+            pp(300 + k, y, 0xFF, buffer[k]);
+        }
+        y++;
         if (readed <= 0) {
             break;
         }
