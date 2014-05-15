@@ -238,7 +238,7 @@ int mz_setup_server_connection() {
 }
 
 
-void read_image(char *name) {
+void draw_image(char *name, int sx, int sy) {
     FILE *file;
     char *buffer;
     int readed, k, y;
@@ -250,13 +250,12 @@ void read_image(char *name) {
         return;
     }
     
-    y = 10;
+    y = sy;
     buffer = (char *) malloc(300 + 1);
     while (1) {
         int readed = fread(buffer, 1, 300, file);
         for (k = 0; k < readed; k+=2) {
-            pp(330 + k/2, y, 0xFF, rgb(255, 0, 0));
-            pp(330 + k/2, y, 0xFF, (buffer[k + 1] << 8) | (buffer[k]));
+            pp(sx + k/2, y, 0xFF, (buffer[k + 1] << 8) | (buffer[k]));
         }
         y++;
         if (readed <= 0) {
@@ -298,17 +297,17 @@ int mz_loop() {
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(10, 10, 330, 55);
+                        clear_area(10, 60, 330, 55);
                         fl_print(wcsbuf, 10, 10, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
-                        clear_area(10, 55, 330, 100);
+                        clear_area(10, 105, 330, 100);
                         fl_print(wcsbuf, 10, 55, rgb(255, 255, 255), 400); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(10, 100, 330, 145);
+                        clear_area(10, 150, 330, 145);
                         fl_print(wcsbuf, 10, 100, rgb(0, 255, 0), 400); 
                     }
 
@@ -322,7 +321,7 @@ int mz_loop() {
                         int status;
                         system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
                         wait(&status); 
-                        read_image("/home/pi/1");
+                        draw_image("/home/pi/1");
                     }
                 } else {
                     buf2[k] = buf[i];
@@ -378,6 +377,9 @@ int main(int argc, char* argv[])
     fbp2 = (char*) malloc(screensize);
 
     clear_screen(rgb(0,0,0));
+    
+    draw_image("/home/pi/ttf2c/mozido-logo", 330, 10)
+    
     fs_print(L"Connecting...", 10, 10, rgb(255, 255, 255), 400); 
     memcpy ( fbp, fbp2, screensize );
 
