@@ -281,9 +281,9 @@ int main(int argc, char* argv[])
             // timeout for recv = 5 sec
             if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) < 0) {
                 if (numbytes == -2) {
-                    printError(L"Socket read timeout");
+                    print_error(L"Socket read timeout");
                 } else if (numbytes == -1) {
-                    printError(L"Socket reading error");  
+                    print_error(L"Socket reading error");  
                 }
                 exit(1);
             }
