@@ -283,6 +283,10 @@ int mz_loop() {
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(370, 240, 480, 272);
                         fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
+
+
+                        system("curl http://192.168.0.3 -o /home/pi/1");  
+                        wait(&status); 
                     }
 
 
@@ -290,26 +294,8 @@ int mz_loop() {
 
 
 
-  FILE *fp;
-  int status;
-  int path[1000000];
+        
 
-  /* Open the command for reading. */
-  fp = popen("/bin/curl http://192.168.0.3/ci", "r");
-  if (fp == NULL) {
-    wprintf(L"Failed to run command\n" );
-    exit;
-  }
-
-  /* Read the output a line at a time - output it. */
-  while (fgets(path, sizeof(path)-1, fp) != NULL) {
-    wprintf(L"%s", path);
-  }
-
-  /* close */
-  pclose(fp);
-
-  return 0;
 
 
 
