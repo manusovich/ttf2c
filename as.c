@@ -38,7 +38,7 @@ char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
-int debug = 1;
+int debug = 0;
 
 int sockfd, numbytes;  
 char buf[MAXDATASIZE];
@@ -405,7 +405,7 @@ int main(int argc, char* argv[])
     } else {
         while (1) {
 
-            wprintf(L"------------- A\n");
+            //wprintf(L"------------- A\n");
 
             if (debug == 0) {
                clear_screen(rgb(0,0,0));
@@ -423,7 +423,7 @@ int main(int argc, char* argv[])
             sprintf(buf2, "%d", server_reconnects);
             print_error(buf2);
 
-            wprintf(L"------------- Z\n");
+            //wprintf(L"------------- Z\n");
 
             sleep(2);
         }
