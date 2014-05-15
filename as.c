@@ -383,11 +383,13 @@ int main(int argc, char* argv[])
         wprintf(L"Failed to mmap.\n");
     } else {
         while (1) {
-            clear_screen(rgb(0,0,0));
-            draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
-            fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330); 
-            memcpy ( fbp, fbp2, screensize );
-
+            if (debug == 0) {
+               clear_screen(rgb(0,0,0));
+                draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
+                fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330); 
+                memcpy ( fbp, fbp2, screensize );
+            }
+            
             errno = 0;
             int res = mz_setup_server_connection();
             if (res > 0) {
