@@ -347,6 +347,7 @@ int main(int argc, char* argv[])
     }
     else {
         while (1) {
+            errno = 0;
             int res = mz_setup_server_connection();
             if (res > 0) {
                 break;
