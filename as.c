@@ -281,9 +281,9 @@ int mz_loop() {
         // timeout for recv = 5 sec
         if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) <= 0) {
             if (numbytes == -2) {
-                print_error("Socket read timeout");
+                print_error("service unavailable");
             } else if (numbytes == -1) {
-                print_error("Socket reading error");  
+                print_error("service unavailable");  
             }
             memcpy ( fbp, fbp2, screensize );
             
