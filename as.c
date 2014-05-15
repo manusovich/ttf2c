@@ -237,6 +237,34 @@ int mz_setup_server_connection() {
     return res;
 }
 
+
+void read_image(char *name) {
+    FILE *file;
+    int *buffer;
+    int readed;
+
+    //Open file
+    file = fopen(name, "rb");
+    if (!file) {
+        wprintf(L"Unable to open file %s", name);
+        return;
+    }
+    
+    buffer = (int *) malloc(150 + 1);
+    while (1) {
+        //Read file contents into buffer
+        int readed = fread(buffer, 300, 1, file);
+        wprintf(L"r %d, ", readed);
+        if (readed <= 0) {
+            break;
+        }
+
+    }
+    fclose(file);
+    free(buffer);
+}
+
+
 int mz_loop() {
     while (1) {
         // timeout for recv = 5 sec
@@ -290,22 +318,8 @@ int mz_loop() {
                         int status;
                         system("curl http://192.168.0.3:8080/ci -o /home/pi/1");  
                         wait(&status); 
-                
+                        read_image("/home/pi/1");
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 } else {
                     buf2[k] = buf[i];
                     k++;
