@@ -33,6 +33,8 @@ char *fbp2 = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
+int debug = 0;
+
 
 int rgb(int r, int g, int b) {
     return ((r & 0x0ff) << 16) | ((g & 0x0ff)<<8) | (b & 0x0ff);
@@ -100,7 +102,6 @@ void clear_area(int x1, int y1, int x2, int y2) {
     }
 }
 
-
 int recvtimeout(int s, char *buf, int len, int timeout)
 {
     fd_set fds;
@@ -124,6 +125,14 @@ int recvtimeout(int s, char *buf, int len, int timeout)
     return recv(s, buf, len, 0);
 }
 
+int printError(char *text) {
+    if (debug == 0) {
+        clear_area(10, 160, 480, 180);
+        fs_print(text, 10, 55, rgb(255, 0, 0), 400);       
+    } else if (debug == 1) {
+        wprintf(L"Error: %s\n", text);
+    }
+}
 
 // application entry point
 int main(int argc, char* argv[])
@@ -268,12 +277,14 @@ int main(int argc, char* argv[])
 
         clear_screen(rgb(0,0,0));
 
-        int debug = 0;
-
         while (1) {
             // timeout for recv = 5 sec
             if ((numbytes = recvtimeout(sockfd, buf, (sizeof buf - 1), 5)) < 0) {
-                wprintf(L"\n Socket reading error: %d\n", numbytes);
+                if (numbytes == -2) {
+                    printError("Socket read timeout");
+                } else if (numbytes == -1) {
+                    printError("Socket reading error");  
+                }
                 exit(1);
             }
             
