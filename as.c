@@ -258,7 +258,7 @@ void read_image(char *name) {
         wprintf(L"Readed %d", readed);
         for (k = 0; k < readed; k+=2) {
             pp(330 + k/2, y, 0xFF, rgb(255, 0, 0));
-            pp(330 + k/2, y, 0xFF, buffer[k]);
+            pp(330 + k/2, y, 0xFF, (buffer[k + 1] << 8) | (buffer[k]));
         }
         y++;
         if (readed <= 0) {
