@@ -404,6 +404,9 @@ int main(int argc, char* argv[])
         wprintf(L"Failed to mmap.\n");
     } else {
         while (1) {
+
+            wprintf(L"------------- A\n");
+
             if (debug == 0) {
                clear_screen(rgb(0,0,0));
                 draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
@@ -419,6 +422,9 @@ int main(int argc, char* argv[])
             server_reconnects++;
             sprintf(buf2, "%d", server_reconnects);
             print_error(buf2);
+
+            wprintf(L"------------- Z\n");
+
         }
     }
 
