@@ -192,13 +192,13 @@ int main(int argc, char* argv[])
         hints.ai_family = AF_UNSPEC;
         hints.ai_socktype = SOCK_STREAM;
 
-        wprintf(L"Resolve address");
+        wprintf(L"Resolve address ...\n");
         if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
             wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
             return 1;
         }
 
-        wprintf(L"Open socket");
+        wprintf(L"Open socket\n");
 
         fd_set rset, wset;
         socklen_t       len;
@@ -209,7 +209,7 @@ int main(int argc, char* argv[])
         // loop through all the results and connect to the first we can
         for (p = servinfo; p != NULL; p = p->ai_next) {
             if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1) {
-                wprintf(L"client: socket");
+                wprintf(L"Can't open socket\n");
                 continue;
             }
 
@@ -250,7 +250,7 @@ int main(int argc, char* argv[])
             if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
                 return(-1);         /* Solaris pending error */
         } else
-    wprintf(L"select error: sockfd not set");
+        wprintf(L"select error: sockfd not set");
            
         done:
             fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
@@ -268,21 +268,6 @@ int main(int argc, char* argv[])
         freeaddrinfo(servinfo); // all done with this structure
 
         clear_screen(rgb(0,0,0));
-
-// int MAXLINE = 300;
-// char                recvline[MAXLINE + 1];
-// for ( ; ; ) {
-//         wprintf(L"1");
-//         if ( (n = read(sockfd, recvline, MAXLINE)) <= 0) {
-//             if (n == 0)
-//                 break;      /* server closed connection */
-//             else
-//                 wprintf(L"Read error");
-//         }
-//         recvline[n] = 0;    /* null terminate */
-//         fputs(recvline, stdout);
-//     }
-
 
         while (1) {
             // timeout for recv = 5 sec
@@ -322,8 +307,6 @@ int main(int argc, char* argv[])
                         fs_print(wcsbuf, 370, 240, rgb(100, 100, 100), 400); 
                     }
 
-
-                    //wprintf(L"%s\n", buf2);
                 } else {
                     buf2[k] = buf[i];
                     k++;
