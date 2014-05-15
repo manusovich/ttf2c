@@ -343,9 +343,10 @@ int mz_loop() {
                     if (buf2[0] == '3' && buf2[1] == '0') {
                         clear_area(330, 70, 480, 240);
                         int status;
-                        system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
-                        wait(&status); 
-                        draw_image("/home/pi/1", 330, 70);
+                        //system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
+                        //sleep(2);
+                        //wait(&status); 
+                        //draw_image("/home/pi/1", 330, 70);
                     }
                 } else {
                     buf2[k] = buf[i];
