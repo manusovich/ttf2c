@@ -345,10 +345,10 @@ int mz_loop() {
                         fs_print(L"L", 400, 150, rgb(255, 255, 255), 330); 
                         memcpy ( fbp, fbp2, screensize );
 
-                        int status;
-                        system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
-                        wait(&status); 
-                        draw_image("/home/pi/1", 330, 70);
+ //                       int status;
+//                        system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
+//                        wait(&status); 
+//                        draw_image("/home/pi/1", 330, 70);
                     }
                 } else {
                     buf2[k] = buf[i];
@@ -411,7 +411,7 @@ int main(int argc, char* argv[])
             //wprintf(L"------------- A\n");
 
             if (debug == 0) {
-               clear_screen(rgb(0,0,0));
+                clear_screen(rgb(0,0,0));
                 draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
                 fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330); 
                 memcpy ( fbp, fbp2, screensize );
