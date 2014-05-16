@@ -231,7 +231,7 @@ int mz_setup_server_connection() {
         wprintf(L"select error: sockfd not set");
     }
 
-    wprintf(L"------------- 8\n");
+    // wprintf(L"------------- 8\n");
 
     done:
         fcntl(sockfd, F_SETFL, flags);  /* restore file status flags */
@@ -242,13 +242,13 @@ int mz_setup_server_connection() {
             return (-1);
          }
 
-    wprintf(L"------------- 9\n");
+    // wprintf(L"------------- 9\n");
 
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
             s, sizeof s);
     wprintf(L"client: connecting to %s\n", s);
 
-    wprintf(L"------------- 10\n");
+    // wprintf(L"------------- 10\n");
 
 
     freeaddrinfo(servinfo); // all done with this structure
@@ -261,7 +261,7 @@ int mz_setup_server_connection() {
 
     close(sockfd);
 
-    wprintf(L"------------- 11\n");
+   // wprintf(L"------------- 11\n");
 
     return res;
 }
