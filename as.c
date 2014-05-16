@@ -196,7 +196,7 @@ int draw_ipaddresses(const int domain, int x, int y)
       return 0;
     }
 
-    if (strcmp(ifr[i].ifr_name, "wlan0") > 0) {
+    if (strcmp(ifr[i].ifr_name, "wlan0") >= 0) {
         swprintf(wcsbuf, BUF_SIZE, L"%s", ip);
         fs_print(wcsbuf, x, y, rgb(100, 100, 100), 400); 
         
