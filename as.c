@@ -345,10 +345,10 @@ int mz_loop() {
                         fs_print(L"L", 400, 150, rgb(255, 255, 255), 330); 
                         memcpy ( fbp, fbp2, screensize );
 
- //                       int status;
-//                        system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
-//                        wait(&status); 
-//                        draw_image("/home/pi/1", 330, 70);
+                        int status;
+                        system("curl -s http://api-inn2.mozido.com/proximity/ci -o /home/pi/1");  
+                        wait(&status); 
+                        draw_image("/home/pi/1", 330, 70);
                     }
                 } else {
                     buf2[k] = buf[i];
