@@ -197,10 +197,10 @@ int draw_ipaddresses(const int domain, int x, int y)
     }
 
     if (strcmp(ifr[i].ifr_name, "wlan0") >= 0) {
-        swprintf(wcsbuf, BUF_SIZE, L"%s", ip);
-        fs_print(wcsbuf, x, y, rgb(100, 100, 100), 400); 
-        
         swprintf(wcsbuf, BUF_SIZE, L"%s", ifr[i].ifr_name);
+        fs_print(wcsbuf, x, y, rgb(100, 100, 100), 400); 
+
+        swprintf(wcsbuf, BUF_SIZE, L"%s", ip);
         fs_print(wcsbuf, x, y + 30, rgb(100, 100, 100), 400); 
     }
   }
@@ -393,7 +393,7 @@ int mz_loop() {
                     
                     if (buf2[0] == '3' && buf2[1] == '0') {
                         clear_area(330, 70, 480, 240);
-                        fs_print(L"L", 400, 150, rgb(255, 255, 255), 330); 
+                        fs_print(L"...", 390, 150, rgb(255, 255, 255), 330); 
                         memcpy ( fbp, fbp2, screensize );
 
                         int status;
