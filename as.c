@@ -343,6 +343,7 @@ int mz_loop() {
                     if (buf2[0] == '3' && buf2[1] == '0') {
                         clear_area(330, 70, 480, 240);
                         fs_print(L"L", 400, 150, rgb(255, 255, 255), 330); 
+                        memcpy ( fbp, fbp2, screensize );
 
                         int status;
                         system("curl -s http://192.168.105.81:8080/ci -o /home/pi/1");  
