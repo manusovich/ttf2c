@@ -417,6 +417,7 @@ int mz_loop() {
 // application entry point
 int main(int argc, char* argv[])
 {
+    int status;
     wprintf(L"Start transmitting Beacon signal");
     system("hciconfig hciO up");
     wait(&status); 
