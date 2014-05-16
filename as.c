@@ -165,7 +165,7 @@ int mz_setup_server_connection() {
     hints.ai_socktype = SOCK_STREAM;
 
     wprintf(L"Resolve address ...\n");
-    if ((rv = getaddrinfo("192.168.105.81", PORT, &hints, &servinfo)) != 0) {
+    if ((rv = getaddrinfo("54.200.79.254", PORT, &hints, &servinfo)) != 0) {
         wprintf(L"getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
