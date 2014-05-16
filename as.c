@@ -21,6 +21,10 @@
 #include <sys/select.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
 #include "fl.h"
 #include "fs.h"
 
@@ -169,7 +173,7 @@ int draw_ipaddresses(const int domain, int x, int y)
 
   s = socket(domain, SOCK_STREAM, 0);
   if (s < 0) {
-    perror("socket");
+    wprintf("socket");
     return 0;
   }
 
@@ -177,12 +181,12 @@ int draw_ipaddresses(const int domain, int x, int y)
   ifconf.ifc_len = sizeof ifr;
 
   if (ioctl(s, SIOCGIFCONF, &ifconf) == -1) {
-    perror("ioctl");
+    wprintf("ioctl");
     return 0;
   }
 
   ifs = ifconf.ifc_len / sizeof(ifr[0]);
-  printf("interfaces = %d:\n", ifs);
+  wprintf("interfaces = %d:\n", ifs);
   for (i = 0; i < ifs; i++) {
     char ip[INET_ADDRSTRLEN];
     struct sockaddr_in *s_in = (struct sockaddr_in *) &ifr[i].ifr_addr;
