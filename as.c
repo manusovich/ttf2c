@@ -397,6 +397,7 @@ int mz_loop() {
                         int status;
                         system("curl -s http://api-inn2.mozido.com/proximity/ci -o /home/pi/1");  
                         wait(&status); 
+
                         draw_image("/home/pi/1", 330, 70);
                     }
                 } else {
@@ -416,6 +417,18 @@ int mz_loop() {
 // application entry point
 int main(int argc, char* argv[])
 {
+    wprintf(L"Start transmitting Beacon signal");
+    system("hciconfig hciO up");
+    wait(&status); 
+    system("hciconfig hci0 leadv");
+    wait(&status); 
+    system("hciconfig hci0 noscan");
+    wait(&status); 
+    system("hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 E2 0A 39 F4 73 F5 4B C4 A1 2F 17 D1 AD 07 A9 61 00 00 00 00 C8 00");
+    wait(&status); 
+
+
+
     // Open the file for reading and writing
     fbfd = open("/dev/fb0", O_RDWR);
     if (!fbfd) {
