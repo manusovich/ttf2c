@@ -197,9 +197,11 @@ int draw_ipaddresses(const int domain, int x, int y)
     }
 
     swprintf(wcsbuf, BUF_SIZE, L"%s", ip);
+    wprintf(L"ip: %s\n", wcsbuf);
     fs_print(wcsbuf, x, y, rgb(100, 100, 100), 400); 
     
     swprintf(wcsbuf, BUF_SIZE, L"%s", ifr[i].ifr_name);
+    wprintf(L"name: %s\n", wcsbuf);
     fs_print(wcsbuf, x, y + 30, rgb(100, 100, 100), 400); 
   }
 
