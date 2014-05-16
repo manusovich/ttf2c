@@ -159,6 +159,51 @@ void print_error(char *text) {
     }
 }
 
+int draw_ipaddresses(const int domain, int x, int y)
+{
+  int s;
+  struct ifconf ifconf;
+  struct ifreq ifr[50];
+  int ifs;
+  int i;
+
+  s = socket(domain, SOCK_STREAM, 0);
+  if (s < 0) {
+    perror("socket");
+    return 0;
+  }
+
+  ifconf.ifc_buf = (char *) ifr;
+  ifconf.ifc_len = sizeof ifr;
+
+  if (ioctl(s, SIOCGIFCONF, &ifconf) == -1) {
+    perror("ioctl");
+    return 0;
+  }
+
+  ifs = ifconf.ifc_len / sizeof(ifr[0]);
+  printf("interfaces = %d:\n", ifs);
+  for (i = 0; i < ifs; i++) {
+    char ip[INET_ADDRSTRLEN];
+    struct sockaddr_in *s_in = (struct sockaddr_in *) &ifr[i].ifr_addr;
+
+    if (!inet_ntop(domain, &s_in->sin_addr, ip, sizeof(ip))) {
+      wprintf(L"inet_ntop");
+      return 0;
+    }
+
+    sprintf(buf2, "%s", ip);
+    fs_print(buf2, x, y, rgb(100, 100, 100), 400); 
+    
+    sprintf(buf2, "%s", ifr[i].ifr_name);
+    fs_print(buf2, x, y + 30, rgb(100, 100, 100), 400); 
+  }
+
+  close(s);
+
+  return 1;
+}
+
 int mz_setup_server_connection() {
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
@@ -413,7 +458,9 @@ int main(int argc, char* argv[])
             if (debug == 0) {
                 clear_screen(rgb(0,0,0));
                 draw_image("/home/pi/ttf2c/mozido-logo", 330, 10);
-                fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330); 
+                fs_print(L"Connecting ...", 20, 30, rgb(255, 255, 255), 330);
+                draw_ipaddresses(AF_INET, 20, 200);            
+
                 memcpy ( fbp, fbp2, screensize );
             }
             
