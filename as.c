@@ -414,6 +414,11 @@ int mz_loop() {
                         fl_print(wcsbuf, 20, 150, rgb(0, 255, 0), 330); 
                     }
 
+                    if (buf2[0] == '5' && buf2[1] == '1') {
+                        clear_area(20, 240, 330, 272);
+                        fs_print(wcsbuf, 20, 240, rgb(100, 100, 100), 330); 
+                    }
+
                     if (buf2[0] == '1' && buf2[1] == '0') {
                         clear_area(330, 240, 480, 272);
                         fs_print(wcsbuf, 365, 240, rgb(100, 100, 100), 400); 
