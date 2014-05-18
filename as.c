@@ -424,7 +424,7 @@ int mz_loop() {
                         fs_print(L"...", 390, 150, rgb(255, 255, 255), 330); 
                         memcpy ( fbp, fbp2, screensize );
 
-                        download_image(buf2);
+                        download_image(buf2 + 2);
                         draw_image("/home/pi/1", 330, 70);
                     }
                 } else {
