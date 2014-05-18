@@ -347,6 +347,34 @@ void draw_image(char *name, int sx, int sy) {
 }
 
 
+void download_image(const char *id) {
+    int status;
+
+    const char *const p1 = "curl -s http://api-inn2.mozido.com/proximity/ci?id=";
+    const char *const p2 = " -o /home/pi/1";
+
+    const size_t idLength = strlen(id);
+    const size_t p1Length = strlen(p1);
+    const size_t p2Length = strlen(p2);
+    const size_t totalLength = idLength + p1Length + p2Length;
+
+    char *const strBuf = malloc(totalLength + 1);
+    if (strBuf == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    strcpy(strBuf, p1);
+    strcpy(strBuf + p1Length, id);
+    strcpy(strBuf + (p1Length + idLength), p2);
+
+    system(strBuf);  
+    wait(&status); 
+
+    puts(strBuf);
+    free(strBuf);
+}
+
 int mz_loop() {
     while (1) {
         clear_area(0, 0, 320, 60);
@@ -396,7 +424,6 @@ int mz_loop() {
                         fs_print(L"...", 390, 150, rgb(255, 255, 255), 330); 
                         memcpy ( fbp, fbp2, screensize );
 
-                        snprintf(buf2, sizeof buf2, "%s ", str1, str2, str3, str4);
                         download_image(buf2);
                         draw_image("/home/pi/1", 330, 70);
                     }
@@ -410,34 +437,6 @@ int mz_loop() {
         }
 
     }
-}
-
-void download_image(const char *id) {
-    int status;
-
-    const char *const p1 = "curl -s http://api-inn2.mozido.com/proximity/ci?id=";
-    const char *const p2 = " -o /home/pi/1";
-
-    const size_t idLength = strlen(id);
-    const size_t p1Length = strlen(p1);
-    const size_t p2Length = strlen(p2);
-    const size_t totalLength = idLength + p1Length + p2Length;
-
-    char *const strBuf = malloc(totalLength + 1);
-    if (strBuf == NULL) {
-        fprintf(stderr, "malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
-
-    strcpy(strBuf, p1);
-    strcpy(strBuf + p1Length, id);
-    strcpy(strBuf + (p1Length + idLength), p2);
-
-    system(strBuf);  
-    wait(&status); 
-
-    puts(strBuf);
-    free(strBuf);
 }
 
 
