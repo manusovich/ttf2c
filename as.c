@@ -400,18 +400,18 @@ int mz_loop() {
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(20, 60, 330, 105);
+                        clear_area(20, 60, 330, 110);
                         fl_print(wcsbuf, 20, 60, rgb(255, 255, 255), 330); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
-                        clear_area(20, 105, 330, 150);
-                        fl_print(wcsbuf, 20, 105, rgb(255, 255, 255), 330); 
+                        clear_area(20, 110, 330, 160);
+                        fl_print(wcsbuf, 20, 110, rgb(255, 255, 255), 330); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '0') {
-                        clear_area(20, 150, 330, 195);
-                        fl_print(wcsbuf, 20, 150, rgb(0, 255, 0), 330); 
+                        clear_area(20, 170, 330, 220);
+                        fl_print(wcsbuf, 20, 170, rgb(0, 255, 0), 330); 
                     }
 
                     if (buf2[0] == '5' && buf2[1] == '1') {
