@@ -400,8 +400,8 @@ int mz_loop() {
                     swprintf(wcsbuf, BUF_SIZE, L"%s", buf2 + 2);
 
                     if (buf2[0] == '2' && buf2[1] == '0') {
-                        clear_area(20, 40, 330, 110);
-                        fl_print(wcsbuf, 20, 40, rgb(255, 255, 255), 330); 
+                        clear_area(20, 60, 330, 110);
+                        fl_print(wcsbuf, 20, 60, rgb(255, 255, 255), 330); 
                     }
 
                     if (buf2[0] == '2' && buf2[1] == '1') {
